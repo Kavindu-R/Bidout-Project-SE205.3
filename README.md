@@ -22,3 +22,4 @@ BidOut is an online auction management system designed for a leading auction hou
    ```bash
    git clone https://github.com/yourusername/bidout.git
    cd bidout
+## More Details Will be Added..
