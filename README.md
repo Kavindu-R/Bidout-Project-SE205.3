@@ -13,6 +13,7 @@ BidOut is an online auction management system designed for a leading auction hou
 ## Tech Stack
 
 - **Frontend**: React.js, Tailwind CSS
+- **Backend** : C#
 - **State Management**: React `useState`, `useEffect`
 - **Styling**: Tailwind CSS for responsive and modern UI design
 
@@ -22,3 +23,4 @@ BidOut is an online auction management system designed for a leading auction hou
    ```bash
    git clone https://github.com/yourusername/bidout.git
    cd bidout
+## More detials Will Be Added
