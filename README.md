@@ -1,8 +1,24 @@
-# React + Vite
+# BidOut
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+BidOut is an online auction management system designed for a leading auction house. The app provides a simple, user-friendly, and colorful interface for managing auctions, placing bids, and securing transactions. Built with React.js and Tailwind CSS, BidOut aims to deliver a seamless experience for users across various devices.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Auction Management**: View and manage a list of ongoing auctions.
+- **Real-Time Bidding**: Place bids in real-time with immediate updates.
+- **Responsive Design**: Optimized for both mobile and desktop devices.
+- **Dynamic Data Handling**: Simulates real-time data fetching and bid validation.
+- **User Authentication** (Planned): Placeholder for future login and signup features.
+
+## Tech Stack
+
+- **Frontend**: React.js, Tailwind CSS
+- **State Management**: React `useState`, `useEffect`
+- **Styling**: Tailwind CSS for responsive and modern UI design
+
+## Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/yourusername/bidout.git
+   cd bidout
