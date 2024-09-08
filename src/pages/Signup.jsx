@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AuthNotification from "../components/AuthNotification";
 
 const SignUpForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -77,20 +78,7 @@ const SignUpForm = () => {
         <h2 className="text-2xl font-bold text-center mb-6">
           Sign Up To BidOut
         </h2>
-        {message ? (
-          <div
-            className={
-              (message_ok
-                ? `border-green-600 bg-green-600`
-                : `border-red-600 bg-red-600`) +
-              " border bg-opacity-10 rounded p-3 mb-2"
-            }
-          >
-            <p className="">{message}</p>
-          </div>
-        ) : (
-          ""
-        )}
+        <AuthNotification message={message} message_ok={message_ok} />
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
