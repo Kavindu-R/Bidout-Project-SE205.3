@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     // Basic form validation
-    if (email === '' || password === '') {
-      alert('Please fill in all fields.');
+    if (email === "" || password === "") {
+      alert("Please fill in all fields.");
       return;
     }
 
@@ -22,7 +22,10 @@ const LoginForm = () => {
         <h2 className="text-2xl font-bold text-center mb-6">BidOut Login</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email
             </label>
             <input
@@ -36,7 +39,10 @@ const LoginForm = () => {
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <input
@@ -51,7 +57,10 @@ const LoginForm = () => {
           </div>
           <div className="flex items-center justify-between">
             <label className="flex items-center">
-              <input type="checkbox" className="form-checkbox text-indigo-600" />
+              <input
+                type="checkbox"
+                className="form-checkbox text-indigo-600"
+              />
               <span className="ml-2 text-sm text-gray-600">Remember me</span>
             </label>
             <a href="#" className="text-sm text-indigo-600 hover:underline">
