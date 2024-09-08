@@ -1,5 +1,3 @@
-// Navbar.jsx
-// import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -40,15 +38,11 @@ const Navbar = () => {
             </div>
             <div className="flex md:hidden">
               <button
+                aria-expanded={isOpen}
                 onClick={() => setIsOpen(!isOpen)}
                 className="bg-blue-600 p-2 rounded-md text-white hover:bg-blue-700 focus:outline-none w-8"
               >
                 <span className="sr-only">Open main menu</span>
-                {isOpen ? (
-                  <i className="fas fa-times w-6 h-6"></i>
-                ) : (
-                  <i className="fas fa-bars w-6 h-6"></i>
-                )}
                 <FontAwesomeIcon size="lg" icon={!isOpen ? faBars : faXmark} />
               </button>
             </div>
@@ -58,25 +52,28 @@ const Navbar = () => {
         {/* Mobile Menu */}
         <div
           className={`${
-            isOpen ? "top-16" : "-top-40"
-          } md:hidden absolute w-full -top-36 transition-all duration-500 -z-20`}
+            isOpen ? "max-h-40" : "max-h-0"
+          } md:hidden absolute w-full overflow-hidden transition-max-height duration-500`}
           id="mobile-menu"
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-blue-600">
             <Link
               to="/"
+              onClick={() => setIsOpen(false)}
               className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-700"
             >
               Home
             </Link>
             <Link
               to="/login"
+              onClick={() => setIsOpen(false)}
               className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-700"
             >
               Login
             </Link>
             <Link
               to="/signup"
+              onClick={() => setIsOpen(false)}
               className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-700"
             >
               Signup
