@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faTwitter, faInstagram, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faFacebook, faTwitter, faInstagram, faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
 
 const Footer = () => {
   return (
@@ -63,6 +63,9 @@ const Footer = () => {
               </a>
               <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-300">
                 <FontAwesomeIcon icon={faLinkedin} size="2x" aria-label="LinkedIn" />
+              </a>
+              <a href="https://Github.com" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-300">
+                <FontAwesomeIcon icon={faGithub} size="2x" aria-label="Github" />
               </a>
             </div>
           </div>
