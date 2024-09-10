@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
+import Auctions from "./pages/Auctions";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -22,6 +23,7 @@ function App() {
             <Route exact path="/signup" element={<Signup />}></Route>
             <Route exact path="/home/:id" element={<Home />}></Route>
             <Route exact path="/profile" element={<Profile />}></Route>
+            <Route exact path="/auctions" element={<Auctions/>}></Route>
 
             <Route path="*" element={<NotFound />} />
           </Routes>
