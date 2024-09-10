@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import Slider from 'react-slick';
+import { motion } from "framer-motion";
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -10,8 +10,8 @@ const HomePage = () => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    autoplay: true, // Enable auto-moving
-    autoplaySpeed: 3000, // Change every 3 seconds
+    autoplay: true, 
+    autoplaySpeed: 3000, 
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     responsive: [
@@ -22,9 +22,9 @@ const HomePage = () => {
           slidesToScroll: 1,
           infinite: true,
           dots: true,
-          autoplay: true, // Ensure autoplay is enabled in responsive breakpoints too
-          autoplaySpeed: 3000
-        }
+          autoplay: true, 
+          autoplaySpeed: 3000,
+        },
       },
       {
         breakpoint: 600,
@@ -32,10 +32,10 @@ const HomePage = () => {
           slidesToShow: 1,
           slidesToScroll: 1,
           autoplay: true,
-          autoplaySpeed: 3000
-        }
-      }
-    ]
+          autoplaySpeed: 3000,
+        },
+      },
+    ],
   };
 
   return (
@@ -48,7 +48,7 @@ const HomePage = () => {
           transition={{ duration: 0.6 }}
           className="text-5xl font-bold text-yellow-300"
         >
-          Welcome to <span className="text-yellow-500">BidOut</span>
+          Welcome to <span className="text-yellow-500">BidOut!!</span>
         </motion.h1>
 
         {/* Sub-heading */}
@@ -58,7 +58,7 @@ const HomePage = () => {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="text-lg mt-4"
         >
-          The best auction platform to bid on your favorite items!
+          The best auction platform to bid on your favorite items.
         </motion.p>
 
         {/* Animated Buttons */}
@@ -127,7 +127,7 @@ const HomePage = () => {
                   >
                     Auction Item {item}
                   </motion.h3>
-                  <p className="text-gray-700 mt-2">Bid now starting at $10!</p>
+                  <p className="text-gray-700 mt-2">Bid now starting at $100!</p>
                 </div>
               </motion.div>
             ))}
