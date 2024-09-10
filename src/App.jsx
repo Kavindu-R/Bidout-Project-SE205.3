@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Profile from "./pages/Profile";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -20,6 +21,7 @@ function App() {
             <Route exact path="/login" element={<Login />}></Route>
             <Route exact path="/signup" element={<Signup />}></Route>
             <Route exact path="/home/:id" element={<Home />}></Route>
+            <Route exact path="/profile" element={<Profile />}></Route>
 
             <Route path="*" element={<NotFound />} />
           </Routes>
