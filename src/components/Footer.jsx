@@ -1,29 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faTwitter, faInstagram, faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faFacebook, faTwitter, faInstagram, faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons"; // Added GitHub icon
 
 const Footer = () => {
   return (
     <footer className="bg-gradient-to-r from-indigo-600 to-blue-500 text-white py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between flex-wrap md:flex-nowrap">
+        <div className="flex flex-wrap justify-center md:flex-nowrap">
           {/* Left section - Brand and Description */}
           <div className="w-full md:w-1/3 lg:w-1/4 xl:w-1/5">
             <h2 className="text-2xl font-bold">
               <span className="text-yellow-400">Bid</span>Out
             </h2>
             <p className="mt-2 text-gray-300">
-             Best Acution Market. Join us to explore more!
+             Best Auction Market. Join us to explore more!
             </p>
           </div>
 
           {/* Middle section - Links */}
           <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 mt-4 md:mt-0">
-            <div className="flex space-x-8">
-              <div>
-                <h3 className="text-lg font-semibold">Company</h3>
-                <ul className="mt-4 space-y-2">
+            <div className="flex flex-wrap justify-center md:flex-nowrap">
+              <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2">
+                <h3 className="text-lg font-semibold text-center md:text-left">Company</h3>
+                <ul className="mt-4 flex flex-col items-center md:flex-row space-y-2 md:space-y-0 md:space-x-4">
                   <li key="home">
                     <Link to="/" className="hover:text-yellow-300">Home</Link>
                   </li>
@@ -35,9 +35,9 @@ const Footer = () => {
                   </li>
                 </ul>
               </div>
-              <div>
-                <h3 className="text-lg font-semibold">Support</h3>
-                <ul className="mt-4 space-y-2">
+              <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 mt-4 md:mt-6">
+                <h3 className="text-lg font-semibold text-center md:text-left">Support</h3>
+                <ul className="mt-4 flex flex-col items-center md:flex-row space-y-2 md:space-y-0 md:space-x-4">
                   <li key="help-center">
                     <Link to="/help-center" className="hover:text-yellow-300">Help Center</Link>
                   </li>
@@ -50,7 +50,7 @@ const Footer = () => {
           </div>
 
           {/* Right section - Social Icons */}
-          <div className="w-full md:w-1/3 lg:w-1/4 xl:w-1/5 mt-4 md:mt-0 flex justify-center md:justify-end">
+          <div className="w-full md:w-1/3 lg:w-1/4 xl:w-1/5 mt-4 md:mt-0 flex justify-center">
             <div className="flex space-x-4 flex-wrap justify-center">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-300">
                 <FontAwesomeIcon icon={faFacebook} size="2x" aria-label="Facebook" />
@@ -64,8 +64,8 @@ const Footer = () => {
               <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-300">
                 <FontAwesomeIcon icon={faLinkedin} size="2x" aria-label="LinkedIn" />
               </a>
-              <a href="https://Github.com" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-300">
-                <FontAwesomeIcon icon={faGithub} size="2x" aria-label="Github" />
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-300">
+                <FontAwesomeIcon icon={faGithub} size="2x" aria-label="GitHub" />
               </a>
             </div>
           </div>
