@@ -109,7 +109,7 @@ const HomePage = () => {
             {[1, 2, 3, 4, 5].map((item) => (
               <motion.div
                 key={item}
-                className="p-4"
+                className="flex flex-col items-center text-center p-4"
                 whileHover={{ scale: 1.05 }}
               >
                 <div className="bg-white p-4 rounded-lg shadow-lg text-black">
