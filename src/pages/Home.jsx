@@ -71,7 +71,7 @@ const HomePage = () => {
           <motion.a
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            href="#"
+            href="login"
             className="bg-yellow-400 text-black px-6 py-3 rounded-full shadow-lg"
           >
             Explore Auctions
@@ -79,7 +79,7 @@ const HomePage = () => {
           <motion.a
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            href="#"
+            href="signup"
             className="bg-blue-600 px-6 py-3 rounded-full shadow-lg"
           >
             Register Now
