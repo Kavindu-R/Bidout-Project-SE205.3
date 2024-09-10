@@ -11,11 +11,18 @@ const Navbar = () => {
       <div className="bg-gradient-to-r from-indigo-600 to-blue-500 text-white shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
-            <div className="flex items-center">
+            <div className="flex items-center space-x-2">
+              <img
+                src="/Bidoutlogo.png"  
+                alt="BidOut Logo"
+                className="h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-full border-2 border-yellow-400"
+              />
               <Link to="/" className="text-2xl font-bold">
                 <span className="text-yellow-400">Bid</span>Out
               </Link>
             </div>
+
+            {/* Middle section with links */}
             <div className="hidden md:flex space-x-6 items-center">
               <Link
                 to="/"
@@ -36,6 +43,8 @@ const Navbar = () => {
                 Signup
               </Link>
             </div>
+
+            {/* Mobile menu button */}
             <div className="flex md:hidden">
               <button
                 aria-expanded={isOpen}
