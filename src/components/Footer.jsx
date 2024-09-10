@@ -35,7 +35,7 @@ const Footer = () => {
                   </li>
                 </ul>
               </div>
-              <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 mt-4 md:mt-6">
+              <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 ">
                 <h3 className="text-lg font-semibold text-center md:text-left">Support</h3>
                 <ul className="mt-4 flex flex-col items-center md:flex-row space-y-2 md:space-y-0 md:space-x-4">
                   <li key="help-center">
