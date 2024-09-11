@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -17,10 +18,23 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="bg-gray-100 flex items-center justify-center min-h-screen">
-      <div className="w-full max-w-sm p-6 bg-white shadow-md rounded-lg">
-        <h2 className="text-2xl font-bold text-center mb-6">BidOut Login</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center min-h-screen p-4">
+      <motion.div
+        className="w-full max-w-md p-8 bg-white shadow-2xl rounded-lg"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+      >
+        <motion.h2
+          className="text-4xl font-extrabold text-center mb-8 text-indigo-600"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <span className="text-yellow-400">Bid</span>Out
+        </motion.h2>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label
               htmlFor="email"
@@ -28,14 +42,15 @@ const LoginForm = () => {
             >
               Email
             </label>
-            <input
+            <motion.input
               id="email"
               name="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+              whileFocus={{ scale: 1.03, borderColor: "#7c3aed" }}
             />
           </div>
           <div>
@@ -45,36 +60,38 @@ const LoginForm = () => {
             >
               Password
             </label>
-            <input
+            <motion.input
               id="password"
               name="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+              whileFocus={{ scale: 1.03, borderColor: "#7c3aed" }}
             />
           </div>
+
           <div className="flex items-center justify-between">
             <label className="flex items-center">
-              <input
-                type="checkbox"
-                className="form-checkbox text-indigo-600"
-              />
+              <input type="checkbox" className="form-checkbox text-purple-600" />
               <span className="ml-2 text-sm text-gray-600">Remember me</span>
             </label>
-            <a href="#" className="text-sm text-indigo-600 hover:underline">
+            <a href="#" className="text-sm text-purple-600 hover:underline">
               Forgot password?
             </a>
           </div>
-          <button
+
+          <motion.button
             type="submit"
-            className="w-full px-4 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="w-full px-4 py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-purple-500 transition-transform"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             Sign In
-          </button>
+          </motion.button>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 };
