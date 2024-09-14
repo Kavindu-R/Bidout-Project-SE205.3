@@ -42,6 +42,13 @@ const Navbar = () => {
               >
                 Signup
               </Link>
+
+              <Link
+                to="Auctions"
+                className="hover:text-yellow-300 text-base font-medium"
+              >
+                To Auctions
+              </Link>
             </div>
 
             {/* Mobile menu button */}

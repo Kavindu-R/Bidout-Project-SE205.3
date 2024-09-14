@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const NotFound= () => {
+const NotFound = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-600 to-blue-500 text-white">
+    <div className="flex items-center justify-center min-h-screen bg-[#000435] text-white">
       <div className="container mx-auto p-6">
         <motion.div
           initial={{ opacity: 0, y: -50 }}
