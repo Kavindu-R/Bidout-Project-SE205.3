@@ -5,7 +5,7 @@ import { faFacebook, faTwitter, faInstagram, faLinkedin, faGithub } from "@forta
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-indigo-600 to-blue-500 text-white py-8">
+    <footer className="bg-[#000435] text-white py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-wrap justify-center md:flex-nowrap">
           {/* Left section - Brand and Description */}
@@ -14,7 +14,7 @@ const Footer = () => {
               <span className="text-yellow-400">Bid</span>Out
             </h2>
             <p className="mt-2 text-gray-300">
-             Best Auction Market. Join us to explore more!
+              Best Auction Market. Join us to explore more!
             </p>
           </div>
 
@@ -35,7 +35,7 @@ const Footer = () => {
                   </li>
                 </ul>
               </div>
-              <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 ">
+              <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2">
                 <h3 className="text-lg font-semibold text-center md:text-left">Support</h3>
                 <ul className="mt-4 flex flex-col items-center md:flex-row space-y-2 md:space-y-0 md:space-x-4">
                   <li key="help-center">

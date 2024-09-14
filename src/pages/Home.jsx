@@ -10,8 +10,8 @@ const HomePage = () => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    autoplay: true, 
-    autoplaySpeed: 3000, 
+    autoplay: true,
+    autoplaySpeed: 3000,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     responsive: [
@@ -22,7 +22,7 @@ const HomePage = () => {
           slidesToScroll: 1,
           infinite: true,
           dots: true,
-          autoplay: true, 
+          autoplay: true,
           autoplaySpeed: 3000,
         },
       },
@@ -39,7 +39,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-indigo-600 to-blue-500 min-h-screen text-white overflow-hidden">
+    <div className="bg-[#000435] min-h-screen text-white overflow-hidden">
       <header className="text-center py-20">
         {/* Animated Heading */}
         <motion.h1
