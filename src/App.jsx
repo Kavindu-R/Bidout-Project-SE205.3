@@ -9,8 +9,12 @@ import Profile from "./pages/Profile";
 import Auctions from "./pages/Auctions";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useState } from "react";
 
-function App() {
+const App = () => {
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+
   return (
     <Router>
       <Navbar />
@@ -19,19 +23,41 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Home />}></Route>
             <Route exact path="/home" element={<Home />}></Route>
-            <Route exact path="/login" element={<Login />}></Route>
-            <Route exact path="/signup" element={<Signup />}></Route>
+            <Route
+              exact
+              path="/login"
+              element={
+                <Login
+                  isUserLoggedIn={isUserLoggedIn}
+                  setIsUserLoggedIn={setIsUserLoggedIn}
+                  user={user}
+                  setUser={setUser}
+                />
+              }
+            ></Route>
+            <Route
+              exact
+              path="/signup"
+              element={
+                <Signup
+                  isUserLoggedIn={isUserLoggedIn}
+                  setIsUserLoggedIn={setIsUserLoggedIn}
+                  user={user}
+                  setUser={setUser}
+                />
+              }
+            ></Route>
             <Route exact path="/home/:id" element={<Home />}></Route>
             <Route exact path="/profile" element={<Profile />}></Route>
-            <Route exact path="/auctions" element={<Auctions/>}></Route>
+            <Route exact path="/auctions" element={<Auctions />}></Route>
 
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </main>
-      <Footer/>
+      <Footer />
     </Router>
   );
-}
+};
 
 export default App;

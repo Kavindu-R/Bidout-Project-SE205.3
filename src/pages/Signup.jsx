@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom"; // Add this line
 import AuthNotification from "../components/AuthNotification";
 
-const SignUpForm = () => {
+// eslint-disable-next-line react/prop-types, no-unused-vars
+const SignUpForm = ({ isUserLoggedIn, setIsUserLoggedIn, user, setUser }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState("");
@@ -15,7 +17,9 @@ const SignUpForm = () => {
   const [message, setMessage] = useState("");
   const [message_ok, setMessage_ok] = useState(false);
 
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     // Basic form validation
@@ -40,7 +44,12 @@ const SignUpForm = () => {
       setMessage_ok(false);
       return;
     }
-    
+    if (mobile.length !== 10) {
+      setMessage("Mobile number must be 10 digits.");
+      setMessage_ok(false);
+      return;
+    }
+
     const signUpData = {
       firstName,
       lastName,
@@ -51,28 +60,33 @@ const SignUpForm = () => {
       address,
       password,
     };
-    
-    fetch("http://localhost:5173/api/users/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(signUpData),
-    })
-      .then((response) => {
-        if (response.ok) {
-          setMessage_ok(true);
-          setMessage("Sign up successful. Redirecting to login page...");
-          setTimeout(() => {
-            window.location.href = "/login";
-          }, 2000);
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setMessage_ok(false);
-        setMessage("Server error occurred. Please try again.");
+    try {
+      const response = await fetch("http://localhost:5173/api/users/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(signUpData),
       });
+      const res = await response.json();
+
+      if (response.ok) {
+        setUser(res.data);
+        setMessage_ok(true);
+        setMessage(`Sign up successful. Redirecting...`);
+        setIsUserLoggedIn(true);
+        setTimeout(() => {
+          navigate("/home");
+        }, 2000);
+      } else {
+        setMessage_ok(false);
+        setMessage(`${res.message}`);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage_ok(false);
+      setMessage("Server error occurred. Please try again.");
+    }
   };
 
   return (

@@ -2,6 +2,8 @@
 
 upekshaip version
 
+Signup TODO: Please make sure to only enter 10 digits. otherwise it may cause to an error!
+
 ### pages structure
 
 - home (added : Needs to add html content)
