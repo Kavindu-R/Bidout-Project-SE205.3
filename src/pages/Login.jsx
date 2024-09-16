@@ -1,21 +1,58 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import AuthNotification from "../components/AuthNotification";
+import { useNavigate } from "react-router-dom";
 
-const LoginForm = () => {
-  const [email, setEmail] = useState("");
+// eslint-disable-next-line react/prop-types, no-unused-vars
+const LoginForm = ({ isUserLoggedIn, setIsUserLoggedIn, user, setUser }) => {
+  const [username, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [message_ok, setMessage_ok] = useState(false);
 
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (email === "" || password === "") {
+    if (username === "" || password === "") {
       alert("Please fill in all fields.");
       return;
     }
 
-    alert(`Email: ${email}\nPassword: ${password}`);
-  };
+    const loginData = {
+      username,
+      password,
+    };
 
+    try {
+      const response = await fetch("http://localhost:5173/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      });
+
+      const res = await response.json();
+      if (response.ok) {
+        setUser(res.data);
+        setMessage_ok(true);
+        setMessage(`${res.message}`);
+        setIsUserLoggedIn(true);
+        setTimeout(() => {
+          navigate("/home");
+        }, 2000);
+      } else {
+        setMessage_ok(false);
+        setMessage(`${res.message}`);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage_ok(false);
+      setMessage("Server error occurred. Please try again.");
+    }
+  };
   return (
     <div className="flex items-center justify-center min-h-screen bg-white p-4">
       <motion.div
@@ -32,9 +69,10 @@ const LoginForm = () => {
           transition={{ delay: 0.2, ease: "easeOut" }}
           whileHover={{ rotate: 2 }}
         >
-          <span className="text-yellow-400">Bid</span> <span className="text-[#000435]">Out</span>
+          <span className="text-yellow-400">Bid</span>{" "}
+          <span className="text-[#000435]">Out</span>
         </motion.h2>
-
+        <AuthNotification message={message} message_ok={message_ok} />
         <form onSubmit={handleSubmit} className="space-y-6">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -45,13 +83,13 @@ const LoginForm = () => {
               htmlFor="email"
               className="block text-sm font-medium text-gray-700"
             >
-              Email
+              Username or Email
             </label>
             <motion.input
-              id="email"
-              name="email"
-              type="email"
-              value={email}
+              id="username"
+              name="username"
+              type="text"
+              value={username}
               onChange={(e) => setEmail(e.target.value)}
               required
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-[white] focus:border-[#000435]"
