@@ -68,7 +68,7 @@ const Navbar = () => {
         {/* Mobile Menu */}
         <div
           className={`${
-            isOpen ? "max-h-40" : "max-h-0"
+            isOpen ? "max-h-50" : "max-h-0"
           } md:hidden absolute w-full overflow-hidden transition-max-height duration-500`}
           id="mobile-menu"
         >
@@ -93,6 +93,13 @@ const Navbar = () => {
               className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-yellow-400"
             >
               Signup
+            </Link>
+            <Link
+              to="/auctions"
+              onClick={() => setIsOpen(false)}
+              className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-yellow-400"
+            >
+              To Auctions
             </Link>
           </div>
         </div>
