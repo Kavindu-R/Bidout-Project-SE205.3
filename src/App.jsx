@@ -12,6 +12,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useState } from "react";
 import Dashboard from "./pages/Dashboard";
 import WebTemplate from "./components/template/WebTemplate";
+import DashboardTemplate from "./components/template/DashboardTemplate";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -100,7 +101,11 @@ const App = () => {
               }
             ></Route>
             {/* /dashboard */}
-            <Route exact path="/dashboard" element={<Dashboard />}></Route>
+            <Route
+              exact
+              path="/dashboard"
+              element={<DashboardTemplate />}
+            ></Route>
             <Route exact path="/profile" element={<Profile />}></Route>
             {/* <Route exact path="/home/:id" element={<Home />}></Route> */}
 
