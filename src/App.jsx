@@ -3,14 +3,10 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Profile from "./pages/Profile";
-// import Auctions from "./pages/Auctions";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useState } from "react";
-import Dashboard from "./pages/Dashboard";
 import WebTemplate from "./components/template/WebTemplate";
 import DashboardTemplate from "./components/template/DashboardTemplate";
 
@@ -106,7 +102,7 @@ const App = () => {
               path="/dashboard"
               element={<DashboardTemplate />}
             ></Route>
-            <Route exact path="/profile" element={<Profile />}></Route>
+
             {/* <Route exact path="/home/:id" element={<Home />}></Route> */}
 
             <Route path="*" element={<NotFound />} />
