@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import LogOut from "./functions/LogOut";
 
-const Navbar = ({ isLogged }) => {
+const Navbar = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -30,15 +31,15 @@ const Navbar = ({ isLogged }) => {
               >
                 Home
               </Link>
-              {isLogged && (
+              {isLoggedIn && (
                 <Link
-                  to="/logout"
+                  to="/profile"
                   className="hover:text-yellow-300 text-base font-medium"
                 >
-                  LogOut
+                  Profile
                 </Link>
               )}
-              {!isLogged && (
+              {!isLoggedIn && (
                 <Link
                   to="/login"
                   className="hover:text-yellow-300 text-base font-medium"
@@ -46,19 +47,34 @@ const Navbar = ({ isLogged }) => {
                   Login
                 </Link>
               )}
-              <Link
-                to="/signup"
-                className="hover:text-yellow-300 text-base font-medium"
-              >
-                Signup
-              </Link>
 
+              {!isLoggedIn && (
+                <Link
+                  to="/signup"
+                  className="hover:text-yellow-300 text-base font-medium"
+                >
+                  Signup
+                </Link>
+              )}
+
+              {isLoggedIn && (
+                <Link
+                  onClick={() => {
+                    LogOut();
+                    setIsLoggedIn(null);
+                    setUser(null);
+                  }}
+                  className="hover:text-yellow-300 text-base font-medium"
+                >
+                  LogOut
+                </Link>
+              )}
               {/* <Link
                 to="Auctions"
                 className="hover:text-yellow-300 text-base font-medium"
-              >
+                >
                 To Auctions
-              </Link> */}
+                </Link> */}
             </div>
 
             {/* Mobile menu button */}
