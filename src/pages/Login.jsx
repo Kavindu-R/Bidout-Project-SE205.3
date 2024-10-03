@@ -4,7 +4,7 @@ import AuthNotification from "../components/AuthNotification";
 import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types, no-unused-vars
-const LoginForm = ({ isUserLoggedIn, setIsUserLoggedIn, user, setUser }) => {
+const LoginForm = ({ isLoggedIn, setIsLoggedIn, user, setUser }) => {
   const [username, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -36,12 +36,16 @@ const LoginForm = ({ isUserLoggedIn, setIsUserLoggedIn, user, setUser }) => {
 
       const res = await response.json();
       if (response.ok) {
-        setUser(res.data);
         setMessage_ok(true);
         setMessage(`${res.message}`);
-        setIsUserLoggedIn(true);
+
+        setIsLoggedIn(true);
+        setUser(res.data);
+        localStorage.setItem("user", JSON.stringify(res.data));
+        localStorage.setItem("isLogged", true);
+
         setTimeout(() => {
-          navigate("/home");
+          navigate("/dashboard");
         }, 2000);
       } else {
         setMessage_ok(false);

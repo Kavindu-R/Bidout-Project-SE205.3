@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import LogOut from "./functions/LogOut";
 
-const Navbar = () => {
+const Navbar = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -13,7 +14,7 @@ const Navbar = () => {
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center space-x-2">
               <img
-                src="/Bidoutlogo.png"  
+                src="/Bidoutlogo.png"
                 alt="BidOut Logo"
                 className="h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-full border-2 border-yellow-400"
               />
@@ -30,25 +31,50 @@ const Navbar = () => {
               >
                 Home
               </Link>
-              <Link
-                to="/login"
-                className="hover:text-yellow-300 text-base font-medium"
-              >
-                Login
-              </Link>
-              <Link
-                to="/signup"
-                className="hover:text-yellow-300 text-base font-medium"
-              >
-                Signup
-              </Link>
+              {isLoggedIn && (
+                <Link
+                  to="/profile"
+                  className="hover:text-yellow-300 text-base font-medium"
+                >
+                  Profile
+                </Link>
+              )}
+              {!isLoggedIn && (
+                <Link
+                  to="/login"
+                  className="hover:text-yellow-300 text-base font-medium"
+                >
+                  Login
+                </Link>
+              )}
 
-              <Link
+              {!isLoggedIn && (
+                <Link
+                  to="/signup"
+                  className="hover:text-yellow-300 text-base font-medium"
+                >
+                  Signup
+                </Link>
+              )}
+
+              {isLoggedIn && (
+                <Link
+                  onClick={() => {
+                    LogOut();
+                    setIsLoggedIn(null);
+                    setUser(null);
+                  }}
+                  className="hover:text-yellow-300 text-base font-medium"
+                >
+                  LogOut
+                </Link>
+              )}
+              {/* <Link
                 to="Auctions"
                 className="hover:text-yellow-300 text-base font-medium"
-              >
+                >
                 To Auctions
-              </Link>
+                </Link> */}
             </div>
 
             {/* Mobile menu button */}
