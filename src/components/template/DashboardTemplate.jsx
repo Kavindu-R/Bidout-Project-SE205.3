@@ -19,7 +19,7 @@ const DashboardTemplate = ({ frame, title, user, setUser }) => {
       <DashSidePanel setUser={setUser} />
       {/* Main Content */}
       <div className="p-4 sm:ml-64">
-        <h2>{title}</h2>
+        <h1 className="text-3xl font-bold mb-4">{title}</h1>
         {frame}
       </div>
     </div>

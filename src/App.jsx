@@ -11,6 +11,7 @@ import DashboardTemplate from "./components/template/DashboardTemplate";
 import Dashboard from "./pages/dashboardPages/Dashboard";
 import Profile from "./pages/dashboardPages/Profile";
 import Blank from "./components/screens/Blank";
+import Auctions from "./pages/dashboardPages/Auctions";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -102,7 +103,20 @@ const App = () => {
                   user={user}
                   setUser={setUser}
                   title={"Auctions"}
-                  frame={<Blank />}
+                  frame={<Auctions />}
+                />
+              }
+            ></Route>
+            {/* Auctions */}
+            <Route
+              exact
+              path="/auctions/:id"
+              element={
+                <DashboardTemplate
+                  user={user}
+                  setUser={setUser}
+                  title={"Auctions"}
+                  frame={<Auctions />}
                 />
               }
             ></Route>

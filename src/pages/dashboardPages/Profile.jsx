@@ -95,22 +95,13 @@ const Profile = ({ user, setUser }) => {
   };
 
   return (
-    <div className="bg-white flex items-center justify-center">
+    <div className="flex items-center justify-center">
       <motion.div
-        className="w-full p-6 bg-white shadow-md rounded-lg"
+        className="w-full bg-white shadow-md rounded-lg"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <motion.h2
-          className="text-2xl font-bold text-center mb-6 text-indigo-600"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          Edit Profile
-        </motion.h2>
-
         {/* Show AuthNotification if there's a message */}
         <AuthNotification message={message} message_ok={messageOk} />
 
