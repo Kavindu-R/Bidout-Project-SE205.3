@@ -10,6 +10,7 @@ import WebTemplate from "./components/template/WebTemplate";
 import DashboardTemplate from "./components/template/DashboardTemplate";
 import Dashboard from "./pages/dashboardPages/Dashboard";
 import Profile from "./pages/dashboardPages/Profile";
+import Blank from "./components/screens/Blank";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -89,6 +90,45 @@ const App = () => {
                   setUser={setUser}
                   title={"Profile"}
                   frame={<Profile />}
+                />
+              }
+            ></Route>
+            {/* Auctions */}
+            <Route
+              exact
+              path="/auctions"
+              element={
+                <DashboardTemplate
+                  user={user}
+                  setUser={setUser}
+                  title={"Auctions"}
+                  frame={<Blank />}
+                />
+              }
+            ></Route>
+            {/* My Auctions */}
+            <Route
+              exact
+              path="/myauctions"
+              element={
+                <DashboardTemplate
+                  user={user}
+                  setUser={setUser}
+                  title={"My Auctions"}
+                  frame={<Blank />}
+                />
+              }
+            ></Route>
+            {/* My Auctions */}
+            <Route
+              exact
+              path="/mybids"
+              element={
+                <DashboardTemplate
+                  user={user}
+                  setUser={setUser}
+                  title={"My Bids"}
+                  frame={<Blank />}
                 />
               }
             ></Route>
