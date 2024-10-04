@@ -89,7 +89,7 @@ const App = () => {
                   user={user}
                   setUser={setUser}
                   title={"Profile"}
-                  frame={<Profile />}
+                  frame={<Profile user={user} setUser={setUser} />}
                 />
               }
             ></Route>
