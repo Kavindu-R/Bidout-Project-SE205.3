@@ -112,7 +112,7 @@ const AuctionPage = () => {
 
       <div className="flex flex-wrap gap-4 mb-6">
         {/* Starting Bid Input */}
-        <div className="w-full md:w-auto">
+        <div className="w-auto md:w-auto">
           <label
             htmlFor="startingBid"
             className="block text-sm font-medium text-gray-700"
@@ -131,7 +131,7 @@ const AuctionPage = () => {
         </div>
 
         {/* Start Time Input */}
-        <div className="w-full md:w-auto">
+        <div className="w-auto md:w-auto">
           <label
             htmlFor="startTime"
             className="block text-sm font-medium text-gray-700"
@@ -149,7 +149,7 @@ const AuctionPage = () => {
         </div>
 
         {/* End Time Input */}
-        <div className="w-full md:w-auto">
+        <div className="w-auto md:w-auto">
           <label
             htmlFor="endTime"
             className="block text-sm font-medium text-gray-700"
@@ -167,7 +167,7 @@ const AuctionPage = () => {
         </div>
 
         {/* Status Input */}
-        <div className="w-full md:w-auto">
+        <div className="w-auto md:w-auto">
           <label
             htmlFor="status"
             className="block text-sm font-medium text-gray-700"
@@ -189,7 +189,7 @@ const AuctionPage = () => {
         </div>
 
         {/* Category Input */}
-        <div className="w-full md:w-auto">
+        <div className="w-auto md:w-auto">
           <label
             htmlFor="category"
             className="block text-sm font-medium text-gray-700"
@@ -241,7 +241,7 @@ const AuctionPage = () => {
         {filteredAuctions.length > 0 ? (
           filteredAuctions.map((auction) => (
             <Link
-              to={`/auctions/${auction.auctionId}`}
+              to={`/auction/${auction.auctionId}`}
               key={auction.auctionId}
               className="border rounded-lg shadow-md p-4"
             >

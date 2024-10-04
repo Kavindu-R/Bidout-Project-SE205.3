@@ -12,6 +12,7 @@ import Dashboard from "./pages/dashboardPages/Dashboard";
 import Profile from "./pages/dashboardPages/Profile";
 import Blank from "./components/screens/Blank";
 import Auctions from "./pages/dashboardPages/Auctions";
+import AuctionItem from "./pages/dashboardPages/AuctionItem";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -110,13 +111,13 @@ const App = () => {
             {/* Auctions */}
             <Route
               exact
-              path="/auctions/:id"
+              path="/auction/:id"
               element={
                 <DashboardTemplate
                   user={user}
                   setUser={setUser}
                   title={"Auctions"}
-                  frame={<Auctions />}
+                  frame={<AuctionItem />}
                 />
               }
             ></Route>
