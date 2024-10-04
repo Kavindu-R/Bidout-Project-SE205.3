@@ -13,6 +13,8 @@ import Profile from "./pages/dashboardPages/Profile";
 import Blank from "./components/screens/Blank";
 import Auctions from "./pages/dashboardPages/Auctions";
 import AuctionItem from "./pages/dashboardPages/AuctionItem";
+import MyAuctions from "./pages/dashboardPages/MyAuctions";
+import CreateAuction from "./pages/dashboardPages/CreateAuction";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -108,7 +110,7 @@ const App = () => {
                 />
               }
             ></Route>
-            {/* Auctions */}
+            {/* Auctions by id */}
             <Route
               exact
               path="/auction/:id"
@@ -130,11 +132,11 @@ const App = () => {
                   user={user}
                   setUser={setUser}
                   title={"My Auctions"}
-                  frame={<Blank />}
+                  frame={<MyAuctions />}
                 />
               }
             ></Route>
-            {/* My Auctions */}
+            {/* My Bids */}
             <Route
               exact
               path="/mybids"
@@ -144,6 +146,19 @@ const App = () => {
                   setUser={setUser}
                   title={"My Bids"}
                   frame={<Blank />}
+                />
+              }
+            ></Route>
+            {/* Create Auctions */}
+            <Route
+              exact
+              path="/create-auction"
+              element={
+                <DashboardTemplate
+                  user={user}
+                  setUser={setUser}
+                  title={"Create New Auction"}
+                  frame={<CreateAuction />}
                 />
               }
             ></Route>

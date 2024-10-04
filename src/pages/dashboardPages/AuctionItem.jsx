@@ -46,7 +46,7 @@ const AuctionItem = () => {
   }
 
   return (
-    <div className="p-4">
+    <div className="">
       <img
         src={auction.auctionImage}
         alt={auction.title}
