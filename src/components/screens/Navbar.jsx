@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
-import LogOut from "./functions/LogOut";
+import LogOut from "../functions/LogOut";
 
-const Navbar = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
+const Navbar = ({ user, setUser }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -31,15 +31,15 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
               >
                 Home
               </Link>
-              {isLoggedIn && (
+              {user && (
                 <Link
-                  to="/profile"
+                  to="/dashboard"
                   className="hover:text-yellow-300 text-base font-medium"
                 >
-                  Profile
+                  Dashboard
                 </Link>
               )}
-              {!isLoggedIn && (
+              {!user && (
                 <Link
                   to="/login"
                   className="hover:text-yellow-300 text-base font-medium"
@@ -48,7 +48,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
                 </Link>
               )}
 
-              {!isLoggedIn && (
+              {!user && (
                 <Link
                   to="/signup"
                   className="hover:text-yellow-300 text-base font-medium"
@@ -57,11 +57,10 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
                 </Link>
               )}
 
-              {isLoggedIn && (
+              {user && (
                 <Link
                   onClick={() => {
                     LogOut();
-                    setIsLoggedIn(null);
                     setUser(null);
                   }}
                   className="hover:text-yellow-300 text-base font-medium"

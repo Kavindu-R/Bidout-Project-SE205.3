@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import CheckUser from "../functions/CheckUser";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import LogOut from "../functions/LogOut";
 
-const DashboardTemplate = () => {
+const DashboardTemplate = ({ frame, title, setUser }) => {
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // For controlling sidebar state
 
@@ -15,6 +16,12 @@ const DashboardTemplate = () => {
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const dashLogout = () => {
+    setUser(null);
+    LogOut();
+    navigate("/login");
   };
 
   return (
@@ -41,19 +48,38 @@ const DashboardTemplate = () => {
         <div className="h-full px-3 py-4 overflow-y-auto">
           <ul className="space-y-2 font-medium">
             <li>
-              <a
-                href="#"
+              <Link
+                to="/dashboard"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <span className="ml-3">Dashboard</span>
-              </a>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/profile"
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <span className="ml-3">Profile</span>
+              </Link>
+            </li>
+            <li>
+              <button
+                onClick={dashLogout}
+                className="flex items-center p-2 w-full text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <span className="ml-3">Logout</span>
+              </button>
             </li>
           </ul>
         </div>
       </aside>
 
       {/* Main Content */}
-      <div className="p-4 sm:ml-64">{/* Content goes here */}</div>
+      <div className="p-4 sm:ml-64">
+        <h2>{title}</h2>
+        {frame}
+      </div>
     </div>
   );
 };

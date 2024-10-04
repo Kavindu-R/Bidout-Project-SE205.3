@@ -1,14 +1,12 @@
-import Navbar from "../Navbar";
+import Navbar from "../screens/Navbar";
+import Footer from "../screens/Footer";
 
-const WebTemplate = ({ frame, isLoggedIn, setIsLoggedIn, setUser }) => {
+const WebTemplate = ({ frame, user, setUser }) => {
   return (
     <>
-      <Navbar
-        isLoggedIn={isLoggedIn}
-        setIsLoggedIn={setIsLoggedIn}
-        setUser={setUser}
-      />
+      <Navbar user={user} setUser={setUser} />
       {frame}
+      <Footer />
     </>
   );
 };

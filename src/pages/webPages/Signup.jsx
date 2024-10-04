@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom"; // Add this line
-import AuthNotification from "../components/AuthNotification";
+import AuthNotification from "../../components/screens/AuthNotification";
 
 // eslint-disable-next-line react/prop-types, no-unused-vars
-const SignUpForm = ({ isLoggedIn, setIsLoggedIn, user, setUser }) => {
+const SignUpForm = ({ user, setUser }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState("");
@@ -71,10 +71,8 @@ const SignUpForm = ({ isLoggedIn, setIsLoggedIn, user, setUser }) => {
       const res = await response.json();
 
       if (response.ok) {
-        setIsLoggedIn(true);
         setUser(res.data);
         localStorage.setItem("user", JSON.stringify(res.data));
-        localStorage.setItem("isLogged", true);
 
         setMessage_ok(true);
         setMessage(`Sign up successful. Redirecting...`);

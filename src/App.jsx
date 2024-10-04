@@ -1,25 +1,23 @@
-import Home from "./pages/Home";
+import Home from "./pages/webPages/Home";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import NotFound from "./pages/NotFound";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Footer from "./components/Footer";
+import NotFound from "./components/screens/NotFound";
+import Login from "./pages/webPages/Login";
+import Signup from "./pages/webPages/Signup";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useState } from "react";
 import WebTemplate from "./components/template/WebTemplate";
 import DashboardTemplate from "./components/template/DashboardTemplate";
+import Dashboard from "./pages/dashboardPages/Dashboard";
+import Profile from "./pages/dashboardPages/Profile";
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    if (localStorage.getItem("user") && localStorage.getItem("isLogged")) {
+    if (localStorage.getItem("user")) {
       console.log("user:", localStorage.getItem("user"));
-      console.log("isLogged:", localStorage.getItem("isLogged"));
       setUser(JSON.parse(localStorage.getItem("user")));
-      setIsLoggedIn(true);
     }
   }, []);
 
@@ -33,13 +31,7 @@ const App = () => {
               exact
               path="/"
               element={
-                <WebTemplate
-                  frame={<Home />}
-                  isLoggedIn={isLoggedIn}
-                  setIsLoggedIn={setIsLoggedIn}
-                  user={user}
-                  setUser={setUser}
-                />
+                <WebTemplate frame={<Home />} user={user} setUser={setUser} />
               }
             ></Route>
             {/* /home */}
@@ -47,13 +39,7 @@ const App = () => {
               exact
               path="/home"
               element={
-                <WebTemplate
-                  frame={<Home />}
-                  isLoggedIn={isLoggedIn}
-                  setIsLoggedIn={setIsLoggedIn}
-                  user={user}
-                  setUser={setUser}
-                />
+                <WebTemplate frame={<Home />} user={user} setUser={setUser} />
               }
             ></Route>
             {/* /login */}
@@ -62,16 +48,8 @@ const App = () => {
               path="/login"
               element={
                 <WebTemplate
-                  frame={
-                    <Login
-                      isLoggedIn={isLoggedIn}
-                      setIsLoggedIn={setIsLoggedIn}
-                      user={user}
-                      setUser={setUser}
-                    />
-                  }
-                  isLoggedIn={isLoggedIn}
-                  setIsLoggedIn={setIsLoggedIn}
+                  frame={<Login user={user} setUser={setUser} />}
+                  user={user}
                   setUser={setUser}
                 />
               }
@@ -82,16 +60,8 @@ const App = () => {
               path="/signup"
               element={
                 <WebTemplate
-                  frame={
-                    <Signup
-                      isLoggedIn={isLoggedIn}
-                      setIsLoggedIn={setIsLoggedIn}
-                      user={user}
-                      setUser={setUser}
-                    />
-                  }
-                  isLoggedIn={isLoggedIn}
-                  setIsLoggedIn={setIsLoggedIn}
+                  frame={<Signup user={user} setUser={setUser} />}
+                  user={user}
                   setUser={setUser}
                 />
               }
@@ -100,7 +70,27 @@ const App = () => {
             <Route
               exact
               path="/dashboard"
-              element={<DashboardTemplate />}
+              element={
+                <DashboardTemplate
+                  user={user}
+                  setUser={setUser}
+                  title={"Dashboard"}
+                  frame={<Dashboard />}
+                />
+              }
+            ></Route>
+            {/* Profile */}
+            <Route
+              exact
+              path="/profile"
+              element={
+                <DashboardTemplate
+                  user={user}
+                  setUser={setUser}
+                  title={"Profile"}
+                  frame={<Profile />}
+                />
+              }
             ></Route>
 
             {/* <Route exact path="/home/:id" element={<Home />}></Route> */}
@@ -109,7 +99,6 @@ const App = () => {
           </Routes>
         </div>
       </main>
-      <Footer />
     </Router>
   );
 };

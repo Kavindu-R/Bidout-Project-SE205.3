@@ -1,7 +1,6 @@
 const CheckUser = () => {
   let user = localStorage.getItem("user");
-  let isLogged = localStorage.getItem("isLogged");
-  if (user && isLogged) {
+  if (user) {
     return true;
   } else {
     return false;
