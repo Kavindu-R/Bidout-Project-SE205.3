@@ -16,7 +16,7 @@ const AuctionItem = () => {
           `http://localhost:5173/api/auctions/${id}`
         );
         if (!response.ok) {
-          throw new Error("Failed to fetch auction details");
+          throw new Error("Auction not found.");
         }
         const data = await response.json();
 
@@ -38,7 +38,7 @@ const AuctionItem = () => {
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return <p>{error}</p>;
   }
 
   if (!auction) {
@@ -77,6 +77,33 @@ const AuctionItem = () => {
         <p className="text-gray-600">Email: {seller.email}</p>
         <p className="text-gray-600">Mobile: {seller.mobile}</p>
         <p className="text-gray-600">Address: {seller.address}</p>
+      </div>
+
+      <div className="mt-6">
+        <h2 className="text-xl font-bold mb-2">Additional Images</h2>
+        {auction.auctionItems.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {auction.auctionItems.map((item, index) => (
+              <div key={index} className="rounded-md border overflow-hidden">
+                <img
+                  src={item.itemImage}
+                  alt={`Additional Image ${index + 1}`}
+                  className="w-full h-40 object-cover"
+                />
+                <div className="p-2 text-center">
+                  <p className="text-gray-600 font-bold">
+                    {item.itemName || `Image ${index + 1}`}
+                  </p>
+                  {item.itemDescription && (
+                    <p className="text-gray-500">{item.itemDescription}</p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No additional images available.</p>
+        )}
       </div>
     </div>
   );
