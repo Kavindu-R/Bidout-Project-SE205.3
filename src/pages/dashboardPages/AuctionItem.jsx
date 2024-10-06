@@ -7,6 +7,9 @@ const AuctionItem = () => {
   const [seller, setSeller] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [bidAmount, setBidAmount] = useState(10); // Default bid amount is $10
+  const [bidError, setBidError] = useState("");
+  const currentUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     // Fetch the auction details based on the ID
@@ -23,6 +26,16 @@ const AuctionItem = () => {
         // Set auction and seller data from the API response
         setAuction(data.data.auction);
         setSeller(data.data.seller);
+
+        // Calculate the highest bid amount from the bids array
+        const highestBid =
+          data.data.auction.bids.length > 0
+            ? Math.max(...data.data.auction.bids.map((bid) => bid.bidAmount))
+            : data.data.auction.startingBid;
+
+        // Set the minimum bid amount to highest bid + $10
+        setBidAmount(highestBid + 10);
+
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -32,6 +45,62 @@ const AuctionItem = () => {
 
     fetchAuctionDetails();
   }, [id]);
+
+  // Handle bid submission
+  const handleBid = async () => {
+    const highestBid =
+      auction.bids.length > 0
+        ? Math.max(...auction.bids.map((bid) => bid.bidAmount))
+        : auction.startingBid;
+
+    const minimumBid = highestBid + 10;
+
+    if (bidAmount < minimumBid) {
+      setBidError(`Bid amount must be at least $${minimumBid}.`);
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5173/api/bids/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          auctionId: auction.auctionId,
+          bidderId: currentUser.id, // Assuming currentUser has bidder ID
+          status: "active",
+          bidAmount: bidAmount,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to place bid.");
+      }
+
+      // Re-fetch auction details after successful bid
+      const updatedResponse = await fetch(
+        `http://localhost:5173/api/auctions/${id}`
+      );
+      const updatedData = await updatedResponse.json();
+      setAuction(updatedData.data.auction);
+
+      // Recalculate the highest bid after placing a bid
+      const highestBidAfterBid =
+        updatedData.data.auction.bids.length > 0
+          ? Math.max(
+              ...updatedData.data.auction.bids.map((bid) => bid.bidAmount)
+            )
+          : updatedData.data.auction.startingBid;
+
+      // Update the minimum bid amount to highest bid + 10
+      setBidAmount(highestBidAfterBid + 10);
+
+      setBidError(""); // Clear any bid error
+    } catch (err) {
+      setBidError(err.message);
+    }
+  };
 
   if (loading) {
     return <p>Loading auction details...</p>;
@@ -103,6 +172,64 @@ const AuctionItem = () => {
           </div>
         ) : (
           <p>No additional images available.</p>
+        )}
+      </div>
+
+      {/* Bidding section */}
+      {auction.status === "active" && currentUser.id !== seller.id && (
+        <div className="mt-6">
+          <h2 className="text-xl font-bold mb-2">Place a Bid</h2>
+          <input
+            type="number"
+            value={bidAmount}
+            min={bidAmount} // Minimum bid amount is highest bid + 10
+            onChange={(e) => setBidAmount(Number(e.target.value))}
+            className="border p-2 mb-2 w-full rounded"
+            placeholder="Enter bid amount"
+          />
+          {bidError && <p className="text-red-600">{bidError}</p>}
+          <button
+            onClick={handleBid}
+            className="bg-blue-500 text-white p-2 rounded"
+          >
+            Place Bid
+          </button>
+        </div>
+      )}
+
+      {/* Bids Table */}
+      <div className="mt-6">
+        <h2 className="text-xl font-bold mb-2">Bids</h2>
+        {auction.bids.length > 0 ? (
+          <table className="min-w-full border-collapse border border-gray-300">
+            <thead>
+              <tr>
+                <th className="border border-gray-300 p-2">Date & Time</th>
+                <th className="border border-gray-300 p-2">Bidder Name</th>
+                <th className="border border-gray-300 p-2">Bid Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {auction.bids
+                .slice()
+                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort by date and time (newest first)
+                .map((bid) => (
+                  <tr key={bid.bidId}>
+                    <td className="border border-gray-300 p-2">
+                      {new Date(bid.createdAt).toLocaleString()}
+                    </td>
+                    <td className="border border-gray-300 p-2">
+                      {bid.bidderName}
+                    </td>
+                    <td className="border border-gray-300 p-2">
+                      ${bid.bidAmount}
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>No bids placed yet.</p>
         )}
       </div>
     </div>
