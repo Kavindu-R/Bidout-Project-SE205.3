@@ -47,19 +47,29 @@ const AuctionPage = () => {
   };
 
   const filteredAuctions = auctions.filter((auction) => {
-    const auctionStartDate = new Date(auction.startTime)
-      .toISOString()
-      .split("T")[0];
-    const auctionEndDate = new Date(auction.endTime)
-      .toISOString()
-      .split("T")[0];
+    const auctionStartDate = new Date(auction.startTime);
+    const auctionEndDate = new Date(auction.endTime);
+    const currentDate = new Date();
+
+    // Check if the auction is pending
+    if (auction.status === "pending") {
+      return false; // Exclude pending auctions
+    }
+
+    // Determine the status based on end date
+    const isActive =
+      auction.status === "active" && auctionEndDate > currentDate;
+
+    // Set auction status as closed if it has expired
+    const auctionStatus = isActive ? "active" : "closed";
 
     return (
       (filters.startingBid === "" ||
         auction.startingBid >= filters.startingBid) &&
-      (filters.startTime === "" || auctionStartDate >= filters.startTime) &&
-      (filters.endTime === "" || auctionEndDate <= filters.endTime) &&
-      (filters.status === "" || auction.status === filters.status) &&
+      (filters.startTime === "" ||
+        auctionStartDate >= new Date(filters.startTime)) &&
+      (filters.endTime === "" || auctionEndDate <= new Date(filters.endTime)) &&
+      (filters.status === "" || auctionStatus === filters.status) && // Check against computed auction status
       (filters.category === "" ||
         auction.auctionCategory === filters.category) &&
       (searchTerm === "" ||
@@ -182,7 +192,6 @@ const AuctionPage = () => {
             className="p-2 border border-gray-300 rounded-md"
           >
             <option value="">Select Status</option>
-            <option value="pending">Pending</option>
             <option value="active">Active</option>
             <option value="closed">Closed</option>
           </select>
@@ -239,44 +248,46 @@ const AuctionPage = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredAuctions.length > 0 ? (
-          filteredAuctions.map((auction) => (
-            <Link
-              to={`/auction/${auction.auctionId}`}
-              key={auction.auctionId}
-              className="border rounded-lg shadow-md p-4"
-            >
-              <img
-                src={auction.auctionImage}
-                alt={auction.title}
-                className="w-full h-48 object-cover rounded-md mb-4"
-              />
-              <h2 className="text-lg font-bold">{auction.title}</h2>
-              <p className="text-gray-700 text-sm mb-2">
-                {auction.description}
-              </p>
-              <p className="text-gray-600 text-sm font-semibold">
-                Category: {auction.auctionCategory}
-              </p>
-              <p className="text-gray-600 text-sm font-semibold">
-                Starting Bid: ${auction.startingBid}
-              </p>
-              <p
-                className={`text-sm my-2 text-${
-                  auction.status === "active" ? "green" : "red"
-                }-600 font-semibold`}
-              >
-                Status: {auction.status}
-              </p>
-              <p className="text-gray-600 text-sm">
-                Start Date: {new Date(auction.startTime).toLocaleDateString()}
-              </p>
-              <p className="text-gray-600 text-sm">
-                End Date: {new Date(auction.endTime).toLocaleDateString()}
-              </p>
-            </Link>
-          ))
+          filteredAuctions
+            .filter((auction) => auction.status !== "pending") // Exclude pending auctions
+            .map((auction) => {
+              const auctionEndDate = new Date(auction.endTime);
+              const currentDate = new Date();
+
+              // Determine display status
+              const isActive =
+                auction.status === "active" && auctionEndDate > currentDate;
+              const displayStatus = isActive ? "active" : "closed"; // Show 'active' or 'closed' status
+
+              return (
+                <Link
+                  to={`/auction/${auction.auctionId}`}
+                  key={auction.auctionId}
+                  className="border rounded-lg shadow-md p-4"
+                >
+                  <img
+                    src={auction.auctionImage}
+                    alt={auction.title}
+                    className="w-full h-48 object-cover rounded-md mb-4"
+                  />
+                  <h2 className="text-lg font-bold">{auction.title}</h2>
+                  <p className="text-gray-700 text-sm mb-2">
+                    {auction.description}
+                  </p>
+                  <p className="text-gray-600 text-sm font-semibold">
+                    Category: {auction.auctionCategory}
+                  </p>
+                  <p className="text-gray-600 text-sm font-semibold">
+                    Starting Bid: ${auction.startingBid}
+                  </p>
+                  <p className="text-gray-600 text-sm font-semibold">
+                    Status: {displayStatus}
+                  </p>
+                </Link>
+              );
+            })
         ) : (
-          <p>No auctions found matching your criteria.</p>
+          <p>No auctions found.</p>
         )}
       </div>
     </div>

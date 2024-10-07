@@ -10,11 +10,13 @@ import WebTemplate from "./components/template/WebTemplate";
 import DashboardTemplate from "./components/template/DashboardTemplate";
 import Dashboard from "./pages/dashboardPages/Dashboard";
 import Profile from "./pages/dashboardPages/Profile";
-import Blank from "./components/screens/Blank";
+// import Blank from "./components/screens/Blank";
 import Auctions from "./pages/dashboardPages/Auctions";
-import AuctionItem from "./pages/dashboardPages/AuctionItem";
+// import AuctionItem from "./pages/dashboardPages/AuctionItem";
 import MyAuctions from "./pages/dashboardPages/MyAuctions";
 import CreateAuction from "./pages/dashboardPages/CreateAuction";
+import MyBids from "./pages/dashboardPages/MyBids";
+import AuctionItemComp from "./pages/dashboardPages/AuctionItemComp";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -119,7 +121,7 @@ const App = () => {
                   user={user}
                   setUser={setUser}
                   title={"Auctions"}
-                  frame={<AuctionItem />}
+                  frame={<AuctionItemComp />}
                 />
               }
             ></Route>
@@ -145,7 +147,7 @@ const App = () => {
                   user={user}
                   setUser={setUser}
                   title={"My Bids"}
-                  frame={<Blank />}
+                  frame={<MyBids />}
                 />
               }
             ></Route>
