@@ -65,7 +65,7 @@ const MyAuctions = () => {
           body: JSON.stringify({
             id: id,
             auctionId: auctionId,
-            status: status,
+            isLive: status,
           }),
         }
       );
@@ -154,27 +154,21 @@ const MyAuctions = () => {
                   >
                     Preview
                   </button>
-                  {/* <button
-                    onClick={() => handleEditAuction(auction.auctionId)}
-                    className="px-3 py-2 bg-yellow-500 text-white rounded-md"
-                  >
-                    Edit
-                  </button> */}
-                  {displayStatus == "pending" && (
+
+                  {auction.isLive == "no" && (
                     <button
-                      onClick={() => statusChange(auction.auctionId, "active")}
+                      onClick={() => statusChange(auction.auctionId, "yes")}
                       className="px-3 py-2 bg-blue-500 text-white rounded-md"
                     >
-                      Click to active
+                      Add to Live
                     </button>
                   )}
-                  {(displayStatus == "pending" ||
-                    displayStatus == "active") && (
+                  {auction.isLive == "yes" && (
                     <button
-                      onClick={() => statusChange(auction.auctionId, "closed")}
+                      onClick={() => statusChange(auction.auctionId, "no")}
                       className="px-3 py-2 bg-red-500 text-white rounded-md"
                     >
-                      Close Auction
+                      Remove from Live
                     </button>
                   )}
                 </div>

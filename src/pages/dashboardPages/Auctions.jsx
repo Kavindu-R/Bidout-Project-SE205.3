@@ -49,19 +49,6 @@ const AuctionPage = () => {
   const filteredAuctions = auctions.filter((auction) => {
     const auctionStartDate = new Date(auction.startTime);
     const auctionEndDate = new Date(auction.endTime);
-    const currentDate = new Date();
-
-    // Check if the auction is pending
-    if (auction.status === "pending") {
-      return false; // Exclude pending auctions
-    }
-
-    // Determine the status based on end date
-    const isActive =
-      auction.status === "active" && auctionEndDate > currentDate;
-
-    // Set auction status as closed if it has expired
-    const auctionStatus = isActive ? "active" : "closed";
 
     return (
       (filters.startingBid === "" ||
@@ -69,7 +56,7 @@ const AuctionPage = () => {
       (filters.startTime === "" ||
         auctionStartDate >= new Date(filters.startTime)) &&
       (filters.endTime === "" || auctionEndDate <= new Date(filters.endTime)) &&
-      (filters.status === "" || auctionStatus === filters.status) && // Check against computed auction status
+      (filters.status === "" || auction.status === filters.status) && // Directly use the auction status from backend
       (filters.category === "" ||
         auction.auctionCategory === filters.category) &&
       (searchTerm === "" ||
@@ -248,44 +235,32 @@ const AuctionPage = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredAuctions.length > 0 ? (
-          filteredAuctions
-            .filter((auction) => auction.status !== "pending") // Exclude pending auctions
-            .map((auction) => {
-              const auctionEndDate = new Date(auction.endTime);
-              const currentDate = new Date();
-
-              // Determine display status
-              const isActive =
-                auction.status === "active" && auctionEndDate > currentDate;
-              const displayStatus = isActive ? "active" : "closed"; // Show 'active' or 'closed' status
-
-              return (
-                <Link
-                  to={`/auction/${auction.auctionId}`}
-                  key={auction.auctionId}
-                  className="border rounded-lg shadow-md p-4"
-                >
-                  <img
-                    src={auction.auctionImage}
-                    alt={auction.title}
-                    className="w-full h-48 object-cover rounded-md mb-4"
-                  />
-                  <h2 className="text-lg font-bold">{auction.title}</h2>
-                  <p className="text-gray-700 text-sm mb-2">
-                    {auction.description}
-                  </p>
-                  <p className="text-gray-600 text-sm font-semibold">
-                    Category: {auction.auctionCategory}
-                  </p>
-                  <p className="text-gray-600 text-sm font-semibold">
-                    Starting Bid: ${auction.startingBid}
-                  </p>
-                  <p className="text-gray-600 text-sm font-semibold">
-                    Status: {displayStatus}
-                  </p>
-                </Link>
-              );
-            })
+          filteredAuctions.map((auction) => (
+            <Link
+              to={`/auction/${auction.auctionId}`}
+              key={auction.auctionId}
+              className="border rounded-lg shadow-md p-4"
+            >
+              <img
+                src={auction.auctionImage}
+                alt={auction.title}
+                className="w-full h-48 object-cover rounded-md mb-4"
+              />
+              <h2 className="text-lg font-bold">{auction.title}</h2>
+              <p className="text-gray-700 text-sm mb-2">
+                {auction.description}
+              </p>
+              <p className="text-gray-600 text-sm font-semibold">
+                Category: {auction.auctionCategory}
+              </p>
+              <p className="text-gray-600 text-sm font-semibold">
+                Starting Bid: ${auction.startingBid}
+              </p>
+              <p className="text-gray-600 text-sm font-semibold">
+                Status: {auction.status}
+              </p>
+            </Link>
+          ))
         ) : (
           <p>No auctions found.</p>
         )}

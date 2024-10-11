@@ -101,7 +101,7 @@ const AuctionItemComp = () => {
         },
         body: JSON.stringify({
           auctionId: auction.auctionId,
-          bidderId: currentUser.id, // Assuming currentUser has bidder ID
+          bidderId: currentUser.id,
           status: "active",
           bidAmount: bidAmount,
         }),
@@ -148,11 +148,7 @@ const AuctionItemComp = () => {
   }
 
   // Check if the auction is closed
-  const isClosed =
-    countdown.days === 0 &&
-    countdown.hours === 0 &&
-    countdown.minutes === 0 &&
-    countdown.seconds === 0;
+  const isClosed = auction.status === "closed";
 
   return (
     <div className="">
@@ -171,24 +167,23 @@ const AuctionItemComp = () => {
       <p className="text-gray-600 mb-2">
         End Date: {new Date(auction.endTime).toLocaleDateString()}
       </p>
-      <p
-        className={`text-${
-          isClosed || auction.status == "closed" ? "red" : "green"
-        }-600`}
-      >
+      <p className={`text-${isClosed ? "red" : "green"}-600`}>
         Status: {isClosed ? "closed" : auction.status}
       </p>
-
-      {/* Countdown Timer */}
-      {!isClosed && auction.status !== "closed" && (
-        <div className="mb-4">
-          <h2 className="text-xl font-bold mt-4">Time Remaining:</h2>
+      {/* Display the winner if the auction is closed */}
+      {/* {isClosed && auction.winnerId && (
+        <div className="mt-6 p-4 border rounded-lg bg-gray-50">
+          <h2 className="text-xl font-bold mb-2">Auction Winner</h2>
           <p>
-            {countdown.days}d {countdown.hours}h {countdown.minutes}m{" "}
-            {countdown.seconds}s
+            Winner:{" "}
+            {
+              auction.bids.find((bid) => bid.bidderId === auction.winnerId)
+                ?.bidderName
+            }{" "}
+            with a bid of ${auction.winningBid}.
           </p>
         </div>
-      )}
+      )} */}
 
       <div className="mt-6 p-4 border rounded-lg bg-gray-50">
         <h2 className="text-xl font-bold mb-2">Seller Information</h2>
@@ -228,6 +223,16 @@ const AuctionItemComp = () => {
         )}
       </div>
 
+      {/* Countdown Timer */}
+      {!isClosed && (
+        <div className="mb-4">
+          <h2 className="text-xl font-bold mt-4">Time Remaining:</h2>
+          <p>
+            {countdown.days}d {countdown.hours}h {countdown.minutes}m{" "}
+            {countdown.seconds}s
+          </p>
+        </div>
+      )}
       {/* Bidding section */}
       {auction.status === "active" &&
         currentUser.id !== seller.id &&
@@ -251,9 +256,6 @@ const AuctionItemComp = () => {
             </button>
           </div>
         )}
-
-      {/* Show winner if auction is closed */}
-
       {isClosed && (
         <div className="mt-6 p-4 border rounded-lg bg-gray-50">
           <h2 className="text-xl font-bold mb-2">Auction Closed</h2>
@@ -278,7 +280,7 @@ const AuctionItemComp = () => {
         </div>
       )}
 
-      {/* Bids Table */}
+      {/* /* Bids Table */}
       <div className="mt-6">
         <h2 className="text-xl font-bold mb-2">Bids</h2>
         {auction.bids.length > 0 ? (
