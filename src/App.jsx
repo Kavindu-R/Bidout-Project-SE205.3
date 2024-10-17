@@ -17,6 +17,7 @@ import MyAuctions from "./pages/dashboardPages/MyAuctions";
 import CreateAuction from "./pages/dashboardPages/CreateAuction";
 import MyBids from "./pages/dashboardPages/MyBids";
 import AuctionItemComp from "./pages/dashboardPages/AuctionItemComp";
+import Notifications from "./pages/dashboardPages/Notifications";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -148,6 +149,19 @@ const App = () => {
                   setUser={setUser}
                   title={"My Bids"}
                   frame={<MyBids />}
+                />
+              }
+            ></Route>
+            {/* Notifications */}
+            <Route
+              exact
+              path="/notifications"
+              element={
+                <DashboardTemplate
+                  user={user}
+                  setUser={setUser}
+                  title={"Notifications"}
+                  frame={<Notifications />}
                 />
               }
             ></Route>

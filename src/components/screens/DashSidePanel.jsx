@@ -78,6 +78,15 @@ const DashSidePanel = ({ setUser }) => {
             </li>
             <li>
               <Link
+                to="/notifications"
+                onClick={toggleSidebar}
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <span className="ml-3">Notifications</span>
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="/profile"
                 onClick={toggleSidebar}
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
