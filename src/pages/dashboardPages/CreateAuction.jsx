@@ -211,7 +211,22 @@ const CreateAuction = () => {
                 Fashion and Accessories
               </option>
               <option value="Home and Garden">Home and Garden</option>
-              {/* Add more categories as needed */}
+              <option value="Electronics and Gadgets">
+                Electronics and Gadgets
+              </option>
+              <option value="Vehicles">Vehicles</option>
+              <option value="Collectibles">Collectibles</option>
+              <option value="Sports and Outdoors">Sports and Outdoors</option>
+              <option value="Toys and Games">Toys and Games</option>
+              <option value="Books and Media">Books and Media</option>
+              <option value="Photography">Photography</option>
+              <option value="Crafts and Hobbies">Crafts and Hobbies</option>
+              <option value="Real Estate">Real Estate</option>
+              <option value="Wine and Spirits">Wine and Spirits</option>
+              <option value="Tickets and Experiences">
+                Tickets and Experiences
+              </option>
+              <option value="Health and Beauty">Health and Beauty</option>
             </select>
           </div>
           <div className="w-full">

@@ -5,6 +5,7 @@ const AuctionItemComp = () => {
   const { id } = useParams(); // Get the auction ID from the URL
   const [auction, setAuction] = useState(null);
   const [seller, setSeller] = useState(null);
+  const [winner, setWinner] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [bidAmount, setBidAmount] = useState(10); // Default bid amount is $10
@@ -32,6 +33,9 @@ const AuctionItemComp = () => {
         // Set auction and seller data from the API response
         setAuction(data.data.auction);
         setSeller(data.data.seller);
+        if (data.data.winner) {
+          setWinner(data.data.winner);
+        }
 
         // Calculate the highest bid amount from the bids array
         const highestBid =
@@ -259,24 +263,14 @@ const AuctionItemComp = () => {
       {isClosed && (
         <div className="mt-6 p-4 border rounded-lg bg-gray-50">
           <h2 className="text-xl font-bold mb-2">Auction Closed</h2>
-          {auction.bids.length > 0 ? (
+          {winner && (
             // Find the winning bid
-            (() => {
-              const winningBid = auction.bids.reduce(
-                (max, bid) => (bid.bidAmount > max.bidAmount ? bid : max),
-                auction.bids[0]
-              );
-
-              return (
-                <p>
-                  Winner: {winningBid.bidderName} with a bid of $
-                  {winningBid.bidAmount}.
-                </p>
-              );
-            })()
-          ) : (
-            <p>No bids were placed. Auction closed without a winner.</p>
+            <p>
+              Winner: {winner.firstName + " " + winner.lastName} with a bid of $
+              {auction.winningBid}
+            </p>
           )}
+          {!auction.winnerId && <p>Auction closed without a winner.</p>}
         </div>
       )}
 
@@ -290,6 +284,7 @@ const AuctionItemComp = () => {
                 <th className="border border-gray-300 p-2">Date & Time</th>
                 <th className="border border-gray-300 p-2">Bidder Name</th>
                 <th className="border border-gray-300 p-2">Bid Amount</th>
+                <th className="border border-gray-300 p-2">Status</th>
               </tr>
             </thead>
             <tbody>
@@ -307,6 +302,7 @@ const AuctionItemComp = () => {
                     <td className="border border-gray-300 p-2">
                       ${bid.bidAmount}
                     </td>
+                    <td className="border border-gray-300 p-2">{bid.status}</td>
                   </tr>
                 ))}
             </tbody>
