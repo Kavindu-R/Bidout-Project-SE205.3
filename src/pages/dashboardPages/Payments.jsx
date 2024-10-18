@@ -8,6 +8,7 @@ const Payments = () => {
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+  const [calc, setCalc] = useState(null);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -42,6 +43,9 @@ const Payments = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
+            if (type == "AuctionPurchase") {
+              setCalc(data.data.calc);
+            }
             setAuctionData(data.data.auction);
             setPaymentAmount(data.data.amount);
             setLoading(false);
@@ -206,9 +210,14 @@ const Payments = () => {
                 <h4 className="text-lg font-bold text-gray-800 mb-2">
                   Payment Amount ({type})
                 </h4>
-                {type === "starting bid" && (
+                {type === "StartingBid" && (
                   <p className="text-sm text-gray-600 mb-4">
                     (Starting Bid = Starting Amount * 10%)
+                  </p>
+                )}
+                {type === "AuctionPurchase" && (
+                  <p className="text-sm text-gray-600 mb-4">
+                    (Total Payment = Winning Bid - Previous Payment)
                   </p>
                 )}
                 <p className="text-sm text-gray-600 mb-6">
@@ -218,9 +227,41 @@ const Payments = () => {
                   to pay the remaining amount. Only needs to pay once to start
                   the bidding process.
                 </p>
-                <p className="text-3xl font-semibold text-green-600">
-                  ${paymentAmount}
-                </p>
+                {type == "AuctionPurchase" && (
+                  <table className="min-w-full bg-white border border-gray-200">
+                    <tbody>
+                      <tr className="border-b hover:bg-gray-50">
+                        <td className="py-3 px-4 text-gray-700 text-left">
+                          Winning Bid
+                        </td>
+                        <td className="py-3 px-4 text-gray-700 text-right">
+                          {auctionData.winningBid} $
+                        </td>
+                      </tr>
+                      <tr className="border-b hover:bg-gray-50">
+                        <td className="py-3 px-4 text-gray-700 text-left">
+                          Previous Payment
+                        </td>
+                        <td className="py-3 px-4 text-gray-700 text-right">
+                          {calc.previousPayment} $
+                        </td>
+                      </tr>
+                      <tr className="border-b hover:bg-gray-50">
+                        <td className="py-3 px-4 text-gray-700 text-left">
+                          <b>Remaining Amount</b>
+                        </td>
+                        <td className="py-3 px-4 text-gray-700 text-right">
+                          <b>{calc.amount} $</b>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                )}
+                {type == "StartingBid" && (
+                  <p className="text-3xl font-semibold text-green-600">
+                    ${paymentAmount}
+                  </p>
+                )}
               </div>
 
               {/* Payment Form Section */}
@@ -228,7 +269,9 @@ const Payments = () => {
                 onSubmit={handleSubmit}
                 className="bg-white p-6 rounded-lg shadow-md"
               >
-                <h2 className="text-xl font-semibold mb-4">Payment</h2>
+                <h2 className="text-xl font-semibold mb-4">
+                  Payment ( {paymentAmount}$ )
+                </h2>
                 <CardElement className="border border-gray-300 p-2 rounded mb-4" />
                 <button
                   className="w-full bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700 transition duration-300"

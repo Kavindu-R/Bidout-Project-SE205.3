@@ -147,6 +147,10 @@ const AuctionItemComp = () => {
     }
   };
 
+  const handlePurches = async () => {
+    navigate(`/payment?auctionId=${auction.auctionId}&type=AuctionPurchase`);
+  };
+
   if (loading) {
     return <p>Loading auction details...</p>;
   }
@@ -169,6 +173,22 @@ const AuctionItemComp = () => {
         alt={auction.title}
         className="w-full h-64 object-cover rounded-md mb-4"
       />
+      {auction.winnerId === currentUser.id &&
+        auction.bids.length > 0 &&
+        !auction.bids.some((bid) => bid.status === "payed") && (
+          <div className="border-2 p-3 flex gap-3 items-center mb-3">
+            <button
+              onClick={handlePurches}
+              className="bg-blue-500 text-white px-4 py-2 rounded-md"
+            >
+              Purchase Item
+            </button>
+            <p>
+              Congratulations! You won the auction. Make sure to purches it
+              before the deadline
+            </p>
+          </div>
+        )}
       <h1 className="text-2xl font-bold mb-2">{auction.title}</h1>
       <p className="text-gray-700 mb-4">{auction.description}</p>
       <p className="text-gray-600 mb-2">Category: {auction.auctionCategory}</p>
