@@ -2,6 +2,17 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import LogOut from "../functions/LogOut";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChartSimple,
+  faGavel,
+  faBell,
+  faTags,
+  faMoneyBill,
+  faUser,
+  faSignOutAlt,
+  faCartShopping,
+} from "@fortawesome/free-solid-svg-icons";
 
 const DashSidePanel = ({ setUser }) => {
   const navigate = useNavigate();
@@ -38,7 +49,7 @@ const DashSidePanel = ({ setUser }) => {
         }`}
         aria-label="Sidebar"
       >
-        <div className="h-full px-3 py-4 overflow-y-auto">
+        <div className="h-full px-4 py-4 overflow-y-auto">
           {/* General Section */}
           <div className="mb-4">
             <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
@@ -51,6 +62,7 @@ const DashSidePanel = ({ setUser }) => {
                   onClick={toggleSidebar}
                   className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
+                  <FontAwesomeIcon icon={faChartSimple} className="mr-2" />
                   <span className="ml-3">Dashboard</span>
                 </Link>
               </li>
@@ -60,6 +72,7 @@ const DashSidePanel = ({ setUser }) => {
                   onClick={toggleSidebar}
                   className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
+                  <FontAwesomeIcon icon={faCartShopping} className="mr-2" />
                   <span className="ml-3">Auctions</span>
                 </Link>
               </li>
@@ -69,6 +82,7 @@ const DashSidePanel = ({ setUser }) => {
                   onClick={toggleSidebar}
                   className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
+                  <FontAwesomeIcon icon={faBell} className="mr-2" />
                   <span className="ml-3">Notifications</span>
                 </Link>
               </li>
@@ -87,6 +101,7 @@ const DashSidePanel = ({ setUser }) => {
                   onClick={toggleSidebar}
                   className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
+                  <FontAwesomeIcon icon={faTags} className="mr-2" />
                   <span className="ml-3">My Auctions</span>
                 </Link>
               </li>
@@ -96,6 +111,7 @@ const DashSidePanel = ({ setUser }) => {
                   onClick={toggleSidebar}
                   className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
+                  <FontAwesomeIcon icon={faGavel} className="mr-2" />
                   <span className="ml-3">My Bids</span>
                 </Link>
               </li>
@@ -105,6 +121,7 @@ const DashSidePanel = ({ setUser }) => {
                   onClick={toggleSidebar}
                   className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
+                  <FontAwesomeIcon icon={faMoneyBill} className="mr-2" />
                   <span className="ml-3">My Payments</span>
                 </Link>
               </li>
@@ -123,6 +140,7 @@ const DashSidePanel = ({ setUser }) => {
                   onClick={toggleSidebar}
                   className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
+                  <FontAwesomeIcon icon={faUser} className="mr-2" />
                   <span className="ml-3">Profile</span>
                 </Link>
               </li>
@@ -131,6 +149,7 @@ const DashSidePanel = ({ setUser }) => {
                   onClick={dashLogout}
                   className="flex items-center p-2 w-full text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
+                  <FontAwesomeIcon icon={faSignOutAlt} className="mr-2" />
                   <span className="ml-3">Logout</span>
                 </button>
               </li>
