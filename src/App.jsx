@@ -23,6 +23,7 @@ import StripePayment from "./components/Payments/StripePayment";
 
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import MyPayments from "./pages/dashboardPages/MyPayments";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -158,6 +159,19 @@ const App = () => {
                     setUser={setUser}
                     title={"My Bids"}
                     frame={<MyBids />}
+                  />
+                }
+              ></Route>
+              {/* My Payments */}
+              <Route
+                exact
+                path="/mypayments"
+                element={
+                  <DashboardTemplate
+                    user={user}
+                    setUser={setUser}
+                    title={"My Payments"}
+                    frame={<MyPayments />}
                   />
                 }
               ></Route>

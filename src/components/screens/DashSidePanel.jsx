@@ -24,10 +24,10 @@ const DashSidePanel = ({ setUser }) => {
         onClick={toggleSidebar}
         aria-controls="default-sidebar"
         type="button"
-        className="inline-flex absolute right-5 flex-row-reverse items-center p-2  text-sm  rounded-lg sm:hidden hover:bg-gray-200 text-black border-gray-800 border-2"
+        className="inline-flex absolute right-5 flex-row-reverse items-center p-2 text-sm rounded-lg sm:hidden hover:bg-gray-200 text-black border-gray-800 border-2"
       >
         <span className="sr-only">Open sidebar</span>
-        menu
+        Menu
       </button>
 
       {/* Sidebar */}
@@ -39,72 +39,103 @@ const DashSidePanel = ({ setUser }) => {
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto">
-          <ul className="space-y-2 font-medium">
-            <li>
-              <Link
-                to="/dashboard"
-                onClick={toggleSidebar}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <span className="ml-3">Dashboard</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/auctions"
-                onClick={toggleSidebar}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <span className="ml-3">Auctions</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/myauctions"
-                onClick={toggleSidebar}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <span className="ml-3">My Auctions</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/mybids"
-                onClick={toggleSidebar}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <span className="ml-3">My Bids</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/notifications"
-                onClick={toggleSidebar}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <span className="ml-3">Notifications</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/profile"
-                onClick={toggleSidebar}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <span className="ml-3">Profile</span>
-              </Link>
-            </li>
+          {/* General Section */}
+          <div className="mb-4">
+            <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
+              General
+            </h2>
+            <ul className="space-y-2 font-medium">
+              <li>
+                <Link
+                  to="/dashboard"
+                  onClick={toggleSidebar}
+                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <span className="ml-3">Dashboard</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/auctions"
+                  onClick={toggleSidebar}
+                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <span className="ml-3">Auctions</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/notifications"
+                  onClick={toggleSidebar}
+                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <span className="ml-3">Notifications</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-            {/* logout */}
-            <li>
-              <button
-                onClick={dashLogout}
-                className="flex items-center p-2 w-full text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <span className="ml-3">Logout</span>
-              </button>
-            </li>
-          </ul>
+          {/* My Activities Section */}
+          <div className="mb-4">
+            <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
+              My Activities
+            </h2>
+            <ul className="space-y-2 font-medium">
+              <li>
+                <Link
+                  to="/myauctions"
+                  onClick={toggleSidebar}
+                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <span className="ml-3">My Auctions</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/mybids"
+                  onClick={toggleSidebar}
+                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <span className="ml-3">My Bids</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/mypayments"
+                  onClick={toggleSidebar}
+                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <span className="ml-3">My Payments</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Account Section */}
+          <div className="mb-4">
+            <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
+              Account
+            </h2>
+            <ul className="space-y-2 font-medium">
+              <li>
+                <Link
+                  to="/profile"
+                  onClick={toggleSidebar}
+                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <span className="ml-3">Profile</span>
+                </Link>
+              </li>
+              <li>
+                <button
+                  onClick={dashLogout}
+                  className="flex items-center p-2 w-full text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <span className="ml-3">Logout</span>
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
       </aside>
     </>
