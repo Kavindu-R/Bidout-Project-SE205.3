@@ -77,12 +77,12 @@ const Notifications = () => {
   }
 
   // Separate notifications into new (unread) and older (read) sections
-  const newNotifications = notifications.filter(
-    (notification) => !notification.isRead
-  );
-  const olderNotifications = notifications.filter(
-    (notification) => notification.isRead
-  );
+  const newNotifications = notifications
+    .filter((notification) => !notification.isRead)
+    .reverse();
+  const olderNotifications = notifications
+    .filter((notification) => notification.isRead)
+    .reverse();
 
   return (
     <div className="mx-auto bg-white shadow-md rounded-md">
