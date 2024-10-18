@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const AuctionItemComp = () => {
   const { id } = useParams(); // Get the auction ID from the URL
@@ -17,6 +17,7 @@ const AuctionItemComp = () => {
     seconds: 0,
   });
   const currentUser = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch the auction details based on the ID
@@ -111,6 +112,13 @@ const AuctionItemComp = () => {
         }),
       });
 
+      var res_data = await response.json();
+      if (!res_data.success) {
+        navigate(
+          `/payment?auctionId=${res_data.data.auctionId}&type=${res_data.data.type}`
+        );
+        // Needs to navigate to payment page
+      }
       if (!response.ok) {
         throw new Error("Failed to place bid.");
       }
