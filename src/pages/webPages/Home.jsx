@@ -23,7 +23,7 @@ const HomePage = () => {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="text-lg mt-4"
         >
-          The best auction platform to bid on your favorite items.
+          The best auction platform to bid on your favorite items
         </motion.p>
 
         {/* Animated Buttons */}
