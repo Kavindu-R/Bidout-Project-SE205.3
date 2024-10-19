@@ -3,6 +3,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrown, faX } from "@fortawesome/free-solid-svg-icons";
+import { Chart as ChartJS, defaults } from "chart.js/auto";
+import { Pie, Doughnut, Bar } from "react-chartjs-2";
+
+defaults.maintainAspectRatio = false;
+defaults.responsive = true;
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState(null);
@@ -42,7 +47,80 @@ const Dashboard = () => {
     },
     dash: { activeBids, totalAuctionIncome, completedAuctions },
     tables: { auctionOverview, paidAuctions, activities },
+    charts: { auctionCategories, auctionTrends },
   } = dashboardData;
+
+  const pieChart = {
+    labels: auctionCategories.map((category) => category.category), // this needs to be as a list of categories
+    datasets: [
+      {
+        data: auctionCategories.map((category) => category.count), // this needs to be as a list of counts
+        backgroundColor: auctionCategories.map((category, index) => {
+          const categoryColors = {
+            "Art and Antiques": "#FF6384",
+            "Fashion and Accessories": "#36A2EB",
+            "Home and Garden": "#FFCE56",
+            "Electronics and Gadgets": "#4BC0C0",
+            Vehicles: "#9966FF",
+            Collectibles: "#FF9F40",
+            "Sports and Outdoors": "#FF6384",
+            "Toys and Games": "#36A2EB",
+            "Books and Media": "#FFCE56",
+            Photography: "#4BC0C0",
+            "Crafts and Hobbies": "#9966FF",
+            "Real Estate": "#FF9F40",
+            "Wine and Spirits": "#FF6384",
+            "Tickets and Experiences": "#36A2EB",
+            "Health and Beauty": "#FFCE56",
+          };
+
+          const colors = auctionCategories.map(
+            (category) => categoryColors[category.category] || "#000000"
+          );
+          return colors[index % colors.length];
+        }),
+        hoverOffset: 5,
+      },
+    ],
+  };
+
+  const barChart = {
+    labels: auctionTrends.map((category) => category.category), // this needs to be as a list of categories
+    datasets: [
+      {
+        data: auctionTrends.map((category) => category.count), // this needs to be as a list of counts
+        backgroundColor: auctionTrends.map((category, index) => {
+          const categoryColors = {
+            "Art and Antiques": "#FF6384",
+            "Fashion and Accessories": "#36A2EB",
+            "Home and Garden": "#FFCE56",
+            "Electronics and Gadgets": "#4BC0C0",
+            Vehicles: "#9966FF",
+            Collectibles: "#FF9F40",
+            "Sports and Outdoors": "#FF6384",
+            "Toys and Games": "#36A2EB",
+            "Books and Media": "#FFCE56",
+            Photography: "#4BC0C0",
+            "Crafts and Hobbies": "#9966FF",
+            "Real Estate": "#FF9F40",
+            "Wine and Spirits": "#FF6384",
+            "Tickets and Experiences": "#36A2EB",
+            "Health and Beauty": "#FFCE56",
+          };
+
+          const colors = auctionTrends.map(
+            (category) => categoryColors[category.category] || "#000000"
+          );
+          return colors[index % colors.length];
+        }),
+        borderRadius: 5,
+      },
+    ],
+  };
+  const pieOptions = {
+    responsive: true,
+  };
+  const barOptions = {};
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -137,7 +215,7 @@ const Dashboard = () => {
           <div className="mt-4">
             {/* Placeholder for Area Chart */}
             <div className="h-48 bg-gray-200 flex items-center justify-center">
-              Area Chart Placeholder
+              <Bar data={barChart} options={barOptions} />;
             </div>
           </div>
         </div>
@@ -148,7 +226,7 @@ const Dashboard = () => {
           <div className="mt-4">
             {/* Placeholder for Pie Chart */}
             <div className="h-48 bg-gray-200 flex items-center justify-center">
-              Pie Chart Placeholder
+              <Doughnut data={pieChart} options={pieOptions} />;
             </div>
           </div>
         </div>
