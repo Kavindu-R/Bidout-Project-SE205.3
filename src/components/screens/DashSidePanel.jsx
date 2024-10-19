@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LogOut from "../functions/LogOut";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,6 +18,7 @@ const DashSidePanel = ({ setUser }) => {
   const navigate = useNavigate();
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // For controlling sidebar state
+  const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0); // For unread notifications count
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -27,6 +28,38 @@ const DashSidePanel = ({ setUser }) => {
     LogOut();
     navigate("/login");
   };
+
+  // Function to fetch unread notifications count
+  const fetchUnreadNotificationsCount = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5173/api/notifications/check",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId: 1 }), // Replace with the actual user ID
+        }
+      );
+      const data = await response.json();
+      if (data.success) {
+        setUnreadNotificationsCount(data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching unread notifications:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUnreadNotificationsCount(); // Initial fetch on mount
+
+    const intervalId = setInterval(() => {
+      fetchUnreadNotificationsCount(); // Fetch every 30 seconds
+    }, 5000); // 30 seconds
+
+    return () => clearInterval(intervalId); // Cleanup on unmount
+  }, []);
 
   return (
     <>
@@ -84,6 +117,11 @@ const DashSidePanel = ({ setUser }) => {
                 >
                   <FontAwesomeIcon icon={faBell} className="mr-2" />
                   <span className="ml-3">Notifications</span>
+                  {unreadNotificationsCount > 0 && ( // Show count if greater than 0
+                    <span className="ml-2 text-red-500 font-bold">
+                      {unreadNotificationsCount}
+                    </span>
+                  )}
                 </Link>
               </li>
             </ul>

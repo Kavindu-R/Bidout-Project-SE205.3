@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCrown } from "@fortawesome/free-solid-svg-icons";
 
 const AuctionItemComp = () => {
   const { id } = useParams(); // Get the auction ID from the URL
@@ -175,7 +177,7 @@ const AuctionItemComp = () => {
       />
       {auction.winnerId === currentUser.id &&
         auction.bids.length > 0 &&
-        !auction.bids.some((bid) => bid.status === "payed") && (
+        !auction.bids.some((bid) => bid.status === "paid") && (
           <div className="border-2 p-3 flex gap-3 items-center mb-3">
             <button
               onClick={handlePurches}
@@ -325,7 +327,13 @@ const AuctionItemComp = () => {
                       {new Date(bid.createdAt).toLocaleString()}
                     </td>
                     <td className="border border-gray-300 p-2">
-                      {bid.bidderName}
+                      {bid.status === "paid" && (
+                        <FontAwesomeIcon
+                          icon={faCrown}
+                          className="mx-2 text-yellow-500"
+                        />
+                      )}
+                      {bid.bidderName}{" "}
                     </td>
                     <td className="border border-gray-300 p-2">
                       ${bid.bidAmount}

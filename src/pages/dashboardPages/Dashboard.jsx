@@ -1,18 +1,64 @@
-/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCrown, faX } from "@fortawesome/free-solid-svg-icons";
+
 const Dashboard = () => {
+  const [dashboardData, setDashboardData] = useState(null);
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+  const userId = currentUser.id;
+
+  useEffect(() => {
+    fetch("http://localhost:5173/api/dashboard/all", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          setDashboardData(data.data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching dashboard data:", error);
+      });
+  }, []);
+
+  if (!dashboardData) {
+    return <p>Loading...</p>;
+  }
+
+  const {
+    auctions: {
+      totalAuctions,
+      activeAuctions,
+      closedAuctions,
+      liveAuctions,
+      removedFromLiveAuctions,
+    },
+    dash: { activeBids, totalAuctionIncome, completedAuctions },
+    tables: { auctionOverview, paidAuctions, activities },
+  } = dashboardData;
+
   return (
-    <div className="p-8 bg-gray-100 min-h-screen">
+    <div className="bg-gray-100 min-h-screen">
       {/* Header Section */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1>
           <p className="text-gray-600">
             Overview of your auction system performance
           </p>
         </div>
-        <button className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
+        <Link
+          to={"/create-auction"}
+          className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700"
+        >
           Create Auction
-        </button>
+        </Link>
       </div>
 
       {/* KPIs Section */}
@@ -21,23 +67,64 @@ const Dashboard = () => {
           <h2 className="text-lg font-semibold text-gray-800">
             Total Auctions
           </h2>
-          <p className="text-3xl font-bold text-blue-600">120</p>
+          <p className="text-3xl font-bold text-blue-600">{totalAuctions}</p>
         </div>
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h2 className="text-lg font-semibold text-gray-800">Active Bids</h2>
-          <p className="text-3xl font-bold text-green-600">50</p>
+          <p className="text-3xl font-bold text-green-600">{activeBids}</p>
         </div>
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h2 className="text-lg font-semibold text-gray-800">
-            Pending Payments
+            Auction Income
           </h2>
-          <p className="text-3xl font-bold text-red-600">$1,200</p>
+          <p className="text-3xl font-bold text-blue-600">
+            ${totalAuctionIncome}
+          </p>
         </div>
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h2 className="text-lg font-semibold text-gray-800">
             Completed Auctions
           </h2>
-          <p className="text-3xl font-bold text-indigo-600">85</p>
+          <p className="text-3xl font-bold text-indigo-600">
+            {completedAuctions}
+          </p>
+        </div>
+      </div>
+
+      {/* Auctions Section */}
+      <div className="bg-white p-6 rounded-lg shadow-md mb-8">
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          Auction Data
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="bg-gray-100 p-4 rounded-lg shadow">
+            <h3 className="text-lg font-semibold text-gray-800">
+              Active Auctions
+            </h3>
+            <p className="text-2xl font-bold text-green-600">
+              {activeAuctions}
+            </p>
+          </div>
+          <div className="bg-gray-100 p-4 rounded-lg shadow">
+            <h3 className="text-lg font-semibold text-gray-800">
+              Closed Auctions
+            </h3>
+            <p className="text-2xl font-bold text-red-600">{closedAuctions}</p>
+          </div>
+          <div className="bg-gray-100 p-4 rounded-lg shadow">
+            <h3 className="text-lg font-semibold text-gray-800">
+              Live Auctions
+            </h3>
+            <p className="text-2xl font-bold text-yellow-600">{liveAuctions}</p>
+          </div>
+          <div className="bg-gray-100 p-4 rounded-lg shadow">
+            <h3 className="text-lg font-semibold text-gray-800">
+              Removed from Live
+            </h3>
+            <p className="text-2xl font-bold text-orange-600">
+              {removedFromLiveAuctions}
+            </p>
+          </div>
         </div>
       </div>
 
@@ -67,31 +154,11 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Recent Activities Section */}
-      <div className="bg-white p-4 rounded-lg shadow-md mb-8">
-        <h2 className="text-lg font-semibold text-gray-800">
-          Recent Activities
-        </h2>
-        <ul className="mt-4 space-y-2">
-          <li>• Bid of $150 placed on "Vintage Car Auction"</li>
-          <li>• New auction created for "Antique Clock"</li>
-          <li>• Payment received for "Handcrafted Watch"</li>
-          <li>• Auction for "Luxury Yacht" closed</li>
-        </ul>
-      </div>
-
       {/* Auction Overview Section */}
       <div className="bg-white p-4 rounded-lg shadow-md mb-8">
         <h2 className="text-lg font-semibold text-gray-800">
-          Auction Overview
+          Latest Auctions Overview
         </h2>
-        <div className="flex items-center justify-between mt-4">
-          <input
-            type="text"
-            placeholder="Search Auctions..."
-            className="border border-gray-300 rounded-lg px-4 py-2 w-full max-w-sm"
-          />
-        </div>
         <table className="w-full mt-4 text-left border-collapse">
           <thead>
             <tr>
@@ -104,39 +171,128 @@ const Dashboard = () => {
               <th className="p-2 border-b-2 font-semibold text-gray-700">
                 Bids
               </th>
+              <th className="p-2 border-b-2 font-semibold text-gray-700">
+                Winner
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="p-2 border-b">Vintage Car</td>
-              <td className="p-2 border-b">Active</td>
-              <td className="p-2 border-b">5</td>
-            </tr>
-            <tr>
-              <td className="p-2 border-b">Antique Clock</td>
-              <td className="p-2 border-b">Ended</td>
-              <td className="p-2 border-b">3</td>
-            </tr>
-            <tr>
-              <td className="p-2 border-b">Luxury Yacht</td>
-              <td className="p-2 border-b">Active</td>
-              <td className="p-2 border-b">12</td>
-            </tr>
+            {auctionOverview.map(({ auction, bidCount }) => (
+              <tr key={auction.auctionId}>
+                <td className="p-2 border-b hover:underline decoration-blue-500 text-sm">
+                  <Link to={"/auction/" + auction.auctionId}>
+                    <p className="font-bold">{auction.title}</p>
+                  </Link>
+                </td>
+                <td
+                  className={
+                    "p-2 border-b " +
+                    (auction.status === "active" ? "text-green-500" : "")
+                  }
+                >
+                  {auction.status}
+                </td>
+                <td className="p-2 border-b">{bidCount}</td>
+                <td className="p-2 border-b">
+                  {auction.winnerId ? (
+                    <FontAwesomeIcon
+                      icon={faCrown}
+                      className="text-yellow-500"
+                    />
+                  ) : (
+                    <FontAwesomeIcon icon={faX} className="text-red-500" />
+                  )}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
+        <Link to={"/myauctions"}>
+          <p className="mt-4 text-blue-500 hover:underline text-sm">
+            View more...
+          </p>
+        </Link>
       </div>
 
-      {/* Bidding Leaderboard */}
-      <div className="bg-white p-4 rounded-lg shadow-md">
-        <h2 className="text-lg font-semibold text-gray-800">
-          Bidding Leaderboard
-        </h2>
-        <ul className="mt-4 space-y-2">
-          <li>1. John Doe - $10,500</li>
-          <li>2. Jane Smith - $9,750</li>
-          <li>3. Mark Wilson - $8,320</li>
-          <li>4. Alice Johnson - $7,990</li>
-        </ul>
+      {/* My Activities */}
+      <div className="bg-white p-4 rounded-lg shadow-md mb-8">
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr>
+              <th className="p-2 border-b-2 font-semibold text-gray-700">
+                Recent Activities
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {activities.map((activity) => (
+              <tr key={activity.id} className="group">
+                <td className="p-2 border-b group-hover:cursor-pointer">
+                  <div className="">
+                    <Link className="" to={activity.link}>
+                      <p className="font-bold group-hover:text-blue-600 transition-colors duration-200 mb-1">
+                        {activity.title}
+                      </p>
+                      <p className="text-sm">{activity.message}</p>
+                      <p className="text-xs text-gray-400">
+                        {new Date(activity.createdAt).toLocaleString()}
+                      </p>
+                    </Link>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <Link to={"/notifications"}>
+          <p className="mt-4 text-blue-500 hover:underline text-sm">
+            View more...
+          </p>
+        </Link>
+      </div>
+
+      {/* Paid Auctions */}
+      <div className="bg-white p-4 rounded-lg shadow-md mb-8">
+        <h2 className="text-lg font-semibold text-gray-800">Paid Auctions</h2>
+        <table className="w-full mt-4 text-left border-collapse">
+          <thead>
+            <tr>
+              <th className="p-2 border-b-2 font-semibold text-gray-700">
+                Auction
+              </th>
+              <th className="p-2 border-b-2 font-semibold text-gray-700">
+                Status
+              </th>
+              <th className="p-2 border-b-2 font-semibold text-gray-700">
+                Winning Bid
+              </th>
+              <th className="p-2 border-b-2 font-semibold text-gray-700">
+                Winner
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {paidAuctions.map((item) => (
+              <tr key={item.auction.auctionId}>
+                <td className="p-2 border-b decoration-blue-500 hover:underline text-sm">
+                  <Link to={"/auction/" + item.auction.auctionId}>
+                    <p className="font-bold">{item.auction.title}</p>
+                  </Link>
+                </td>
+                <td
+                  className={
+                    "p-2 border-b " +
+                    (item.auction.status === "active" ? "text-green-500" : "")
+                  }
+                >
+                  {item.auction.status}
+                </td>
+                <td className="p-2 border-b">${item.winningBid.bidAmount}</td>
+                <td className="p-2 border-b">{item.winningBid.bidderName}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
