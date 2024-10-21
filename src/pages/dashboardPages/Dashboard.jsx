@@ -57,21 +57,21 @@ const Dashboard = () => {
         data: auctionCategories.map((category) => category.count), // this needs to be as a list of counts
         backgroundColor: auctionCategories.map((category, index) => {
           const categoryColors = {
-            "Art and Antiques": "#FF6384",
-            "Fashion and Accessories": "#36A2EB",
-            "Home and Garden": "#FFCE56",
-            "Electronics and Gadgets": "#4BC0C0",
-            Vehicles: "#9966FF",
-            Collectibles: "#FF9F40",
-            "Sports and Outdoors": "#FF6384",
-            "Toys and Games": "#36A2EB",
-            "Books and Media": "#FFCE56",
-            Photography: "#4BC0C0",
-            "Crafts and Hobbies": "#9966FF",
-            "Real Estate": "#FF9F40",
-            "Wine and Spirits": "#FF6384",
-            "Tickets and Experiences": "#36A2EB",
-            "Health and Beauty": "#FFCE56",
+            "Art and Antiques": "#8B4513", // Brown, representing classic and antique
+            "Fashion and Accessories": "#E91E63", // Pink, stylish and trendy
+            "Home and Garden": "#4CAF50", // Green, symbolizing nature and growth
+            "Electronics and Gadgets": "#00BCD4", // Cyan, modern and tech-oriented
+            Vehicles: "#FF5722", // Orange, representing speed and action
+            Collectibles: "#9C27B0", // Purple, unique and rare
+            "Sports and Outdoors": "#009688", // Teal, associated with outdoor and activity
+            "Toys and Games": "#FFEB3B", // Yellow, playful and fun
+            "Books and Media": "#795548", // Brown, signifying knowledge and literature
+            Photography: "#607D8B", // Grayish blue, representing the camera lens
+            "Crafts and Hobbies": "#FFC107", // Amber, representing creativity and crafting
+            "Real Estate": "#3F51B5", // Blue, symbolizing stability and trust
+            "Wine and Spirits": "#8D2828", // Deep red, like the color of red wine
+            "Tickets and Experiences": "#FF9800", // Bright orange, representing excitement
+            "Health and Beauty": "#E91E63", // Pink, symbolizing beauty and self-care
           };
 
           const colors = auctionCategories.map(
@@ -91,21 +91,21 @@ const Dashboard = () => {
         data: auctionTrends.map((category) => category.count), // this needs to be as a list of counts
         backgroundColor: auctionTrends.map((category, index) => {
           const categoryColors = {
-            "Art and Antiques": "#FF6384",
-            "Fashion and Accessories": "#36A2EB",
-            "Home and Garden": "#FFCE56",
-            "Electronics and Gadgets": "#4BC0C0",
-            Vehicles: "#9966FF",
-            Collectibles: "#FF9F40",
-            "Sports and Outdoors": "#FF6384",
-            "Toys and Games": "#36A2EB",
-            "Books and Media": "#FFCE56",
-            Photography: "#4BC0C0",
-            "Crafts and Hobbies": "#9966FF",
-            "Real Estate": "#FF9F40",
-            "Wine and Spirits": "#FF6384",
-            "Tickets and Experiences": "#36A2EB",
-            "Health and Beauty": "#FFCE56",
+            "Art and Antiques": "#8B4513", // Brown, representing classic and antique
+            "Fashion and Accessories": "#E91E63", // Pink, stylish and trendy
+            "Home and Garden": "#4CAF50", // Green, symbolizing nature and growth
+            "Electronics and Gadgets": "#00BCD4", // Cyan, modern and tech-oriented
+            Vehicles: "#FF5722", // Orange, representing speed and action
+            Collectibles: "#9C27B0", // Purple, unique and rare
+            "Sports and Outdoors": "#009688", // Teal, associated with outdoor and activity
+            "Toys and Games": "#FFEB3B", // Yellow, playful and fun
+            "Books and Media": "#795548", // Brown, signifying knowledge and literature
+            Photography: "#607D8B", // Grayish blue, representing the camera lens
+            "Crafts and Hobbies": "#FFC107", // Amber, representing creativity and crafting
+            "Real Estate": "#3F51B5", // Blue, symbolizing stability and trust
+            "Wine and Spirits": "#8D2828", // Deep red, like the color of red wine
+            "Tickets and Experiences": "#FF9800", // Bright orange, representing excitement
+            "Health and Beauty": "#E91E63", // Pink, symbolizing beauty and self-care
           };
 
           const colors = auctionTrends.map(
@@ -123,7 +123,7 @@ const Dashboard = () => {
   const barOptions = {};
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className=" min-h-screen">
       {/* Header Section */}
       <div className="flex justify-between items-center mb-8">
         <div>
@@ -214,8 +214,8 @@ const Dashboard = () => {
           </h2>
           <div className="mt-4">
             {/* Placeholder for Area Chart */}
-            <div className="h-48 bg-gray-200 flex items-center justify-center">
-              <Bar data={barChart} options={barOptions} />;
+            <div className="h-48 flex items-center justify-center">
+              <Bar data={barChart} options={barOptions} />
             </div>
           </div>
         </div>
@@ -225,8 +225,16 @@ const Dashboard = () => {
           </h2>
           <div className="mt-4">
             {/* Placeholder for Pie Chart */}
-            <div className="h-48 bg-gray-200 flex items-center justify-center">
-              <Doughnut data={pieChart} options={pieOptions} />;
+            <div className="h-48  flex items-center justify-center">
+              {auctionCategories.length > 0 && (
+                <Doughnut data={pieChart} options={pieOptions} />
+              )}
+              {auctionCategories.length == 0 && (
+                <div className="flex flex-col justify-center items-center">
+                  <h3>No Data Available</h3>
+                  <p>Create auctions to see the details</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

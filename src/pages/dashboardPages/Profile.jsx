@@ -96,12 +96,7 @@ const Profile = ({ user, setUser }) => {
 
   return (
     <div className="flex items-center justify-center">
-      <motion.div
-        className="w-full bg-white shadow-md rounded-lg"
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
+      <div className="w-full rounded-lg">
         {/* Show AuthNotification if there's a message */}
         <AuthNotification message={message} message_ok={messageOk} />
 
@@ -258,7 +253,7 @@ const Profile = ({ user, setUser }) => {
             </motion.button>
           </div>
         </form>
-      </motion.div>
+      </div>
     </div>
   );
 };

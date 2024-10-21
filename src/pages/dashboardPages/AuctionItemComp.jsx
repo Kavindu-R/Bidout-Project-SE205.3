@@ -219,7 +219,7 @@ const AuctionItemComp = () => {
         </div>
       )} */}
 
-      <div className="mt-6 p-4 border rounded-lg bg-gray-50">
+      <div className="mt-6 p-4 border rounded-lg bg-white shadow-md">
         <h2 className="text-xl font-bold mb-2">Seller Information</h2>
         <p className="text-gray-600">
           Name: {seller.firstName} {seller.lastName}
@@ -235,7 +235,10 @@ const AuctionItemComp = () => {
         {auction.auctionItems.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {auction.auctionItems.map((item, index) => (
-              <div key={index} className="rounded-md border overflow-hidden">
+              <div
+                key={index}
+                className="rounded-md border bg-white shadow-md overflow-hidden"
+              >
                 <img
                   src={item.itemImage}
                   alt={`Additional Image ${index + 1}`}
@@ -291,7 +294,7 @@ const AuctionItemComp = () => {
           </div>
         )}
       {isClosed && (
-        <div className="mt-6 p-4 border rounded-lg bg-gray-50">
+        <div className="mt-6 p-4 border rounded-lg bg-white shadow-md">
           <h2 className="text-xl font-bold mb-2">Auction Closed</h2>
           {winner && (
             // Find the winning bid
@@ -308,13 +311,13 @@ const AuctionItemComp = () => {
       <div className="mt-6">
         <h2 className="text-xl font-bold mb-2">Bids</h2>
         {auction.bids.length > 0 ? (
-          <table className="min-w-full border-collapse border border-gray-300">
+          <table className="min-w-full border-collapse border border-gray-400 bg-white rounded-lg overflow-hidden">
             <thead>
               <tr>
-                <th className="border border-gray-300 p-2">Date & Time</th>
-                <th className="border border-gray-300 p-2">Bidder Name</th>
-                <th className="border border-gray-300 p-2">Bid Amount</th>
-                <th className="border border-gray-300 p-2">Status</th>
+                <th className="border border-gray-400 p-2">Date & Time</th>
+                <th className="border border-gray-400 p-2">Bidder Name</th>
+                <th className="border border-gray-400 p-2">Bid Amount</th>
+                <th className="border border-gray-400 p-2">Status</th>
               </tr>
             </thead>
             <tbody>
@@ -323,22 +326,22 @@ const AuctionItemComp = () => {
                 .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort by date and time (newest first)
                 .map((bid) => (
                   <tr key={bid.bidId}>
-                    <td className="border border-gray-300 p-2">
+                    <td className="border border-gray-400 p-2">
                       {new Date(bid.createdAt).toLocaleString()}
                     </td>
-                    <td className="border border-gray-300 p-2">
+                    <td className="border border-gray-400 p-2">
                       {bid.status === "paid" && (
                         <FontAwesomeIcon
                           icon={faCrown}
                           className="mx-2 text-yellow-500"
                         />
                       )}
-                      {bid.bidderName}{" "}
+                      {bid.bidderName}
                     </td>
-                    <td className="border border-gray-300 p-2">
+                    <td className="border border-gray-400 p-2">
                       ${bid.bidAmount}
                     </td>
-                    <td className="border border-gray-300 p-2">{bid.status}</td>
+                    <td className="border border-gray-400 p-2">{bid.status}</td>
                   </tr>
                 ))}
             </tbody>

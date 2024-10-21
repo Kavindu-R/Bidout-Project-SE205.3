@@ -85,7 +85,7 @@ const Notifications = () => {
     .reverse();
 
   return (
-    <div className="mx-auto bg-white shadow-md rounded-md">
+    <div className="mx-auto rounded-md">
       {newNotifications.length > 0 && (
         <div>
           <h3 className="text-lg font-medium mb-2">New</h3>
@@ -93,7 +93,7 @@ const Notifications = () => {
             {newNotifications.map((notification) => (
               <li
                 key={notification.id}
-                className="p-4 rounded-lg shadow-md bg-blue-50"
+                className="p-4 rounded-lg shadow-md bg-blue-100"
               >
                 <div className="flex justify-between items-center">
                   <div>
@@ -129,7 +129,7 @@ const Notifications = () => {
             {olderNotifications.map((notification) => (
               <li
                 key={notification.id}
-                className="p-4 rounded-lg shadow-md bg-gray-100"
+                className="p-4 rounded-lg shadow-md bg-white"
               >
                 <div>
                   <strong className="text-lg">{notification.title}</strong>

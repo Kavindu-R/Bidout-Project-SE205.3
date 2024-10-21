@@ -15,7 +15,7 @@ const DashboardTemplate = ({ frame, title, user, setUser }) => {
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative bg-gray-100 min-h-screen">
       <div className="px-4 py-4 sm:ml-64 fixed w-full border-b-2 bg-slate-50 flex align-middle border-blue-700">
         <DashSidePanel setUser={setUser} />
         {/* Main Content */}

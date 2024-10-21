@@ -121,7 +121,7 @@ const MyAuctions = () => {
             return (
               <div
                 key={auction.auctionId}
-                className="border rounded-lg shadow-md p-4 flex flex-col"
+                className="border rounded-lg shadow-md p-4 bg-white flex flex-col"
               >
                 <img
                   src={auction.auctionImage}

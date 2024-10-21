@@ -239,7 +239,7 @@ const AuctionPage = () => {
             <Link
               to={`/auction/${auction.auctionId}`}
               key={auction.auctionId}
-              className="border rounded-lg shadow-md p-4"
+              className="border rounded-lg shadow-md p-4 bg-white"
             >
               <img
                 src={auction.auctionImage}
