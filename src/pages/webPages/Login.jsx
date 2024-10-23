@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import AuthNotification from "../components/AuthNotification";
+import AuthNotification from "../../components/screens/AuthNotification";
 import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types, no-unused-vars
-const LoginForm = ({ isLoggedIn, setIsLoggedIn, user, setUser }) => {
+const LoginForm = ({ user, setUser }) => {
   const [username, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -39,10 +39,8 @@ const LoginForm = ({ isLoggedIn, setIsLoggedIn, user, setUser }) => {
         setMessage_ok(true);
         setMessage(`${res.message}`);
 
-        setIsLoggedIn(true);
         setUser(res.data);
         localStorage.setItem("user", JSON.stringify(res.data));
-        localStorage.setItem("isLogged", true);
 
         setTimeout(() => {
           navigate("/dashboard");

@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 const AuthNotification = ({ message, message_ok }) => {
   return message ? (
     <div
@@ -15,11 +13,6 @@ const AuthNotification = ({ message, message_ok }) => {
   ) : (
     ""
   );
-};
-
-AuthNotification.propTypes = {
-  message: PropTypes.string,
-  message_ok: PropTypes.bool,
 };
 
 export default AuthNotification;
