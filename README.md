@@ -31,19 +31,17 @@ Follow these instructions to set up the project on your local machine for develo
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Kavindu-R/BidOut.git
+   git clone https://github.com/upekshaip/sa-frontend.git
+   ```
 
-  2 Navigate to the project directory:
-  
+2 Navigate to the project directory:
+
     cd BidOut
 
-  3 Install the necessary dependencies:
+3 Install the necessary dependencies:
 
       npm install
 
-  4 To run the application locally, use the following command:
+4 To run the application locally, use the following command:
 
      npm run dev
-
-
-  
