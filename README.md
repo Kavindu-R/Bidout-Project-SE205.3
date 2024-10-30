@@ -36,7 +36,7 @@ Follow these instructions to set up the project on your local machine for develo
 
 2 Navigate to the project directory:
 
-    cd BidOut
+    cd sa-frontend
 
 3 Install the necessary dependencies:
 
