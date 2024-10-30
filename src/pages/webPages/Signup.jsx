@@ -100,12 +100,16 @@ const SignUpForm = ({ user, setUser }) => {
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <motion.h2
-          className="text-2xl font-bold text-center mb-6 text-indigo-600"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-4xl font-extrabold text-center mb-8 text-[#000435]"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2, ease: "easeOut" }}
+          whileHover={{ rotate: 2 }}
         >
-          Sign Up To <span className="text-yellow-400">Bid</span>Out
+          <div className="text-2xl font-bold flex items-center space-x-2">
+            <div className="w-5 h-5 bg-yellow-500 rounded-full"></div>
+            <span className="text-yellow-500">Bid</span>Out
+          </div>
         </motion.h2>
         <AuthNotification message={message} message_ok={message_ok} />
         <form onSubmit={handleSubmit} className="space-y-4">

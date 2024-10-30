@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import LogOut from "../functions/LogOut";
 import { useNavigate } from "react-router-dom";
@@ -83,6 +84,17 @@ const DashSidePanel = ({ setUser }) => {
         aria-label="Sidebar"
       >
         <div className="h-full px-4 py-4 overflow-y-auto">
+          <motion.h2
+            className="text-4xl font-extrabold text-center mb-4 text-white ml-2"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, ease: "easeOut" }}
+          >
+            <div className="text-2xl font-bold flex items-center space-x-2">
+              <div className="w-5 h-5 bg-yellow-500 rounded-full"></div>
+              <span className="text-yellow-500">Bid</span>Out
+            </div>
+          </motion.h2>
           {/* General Section */}
           <div className="mb-4">
             <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">

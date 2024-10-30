@@ -71,8 +71,10 @@ const LoginForm = ({ user, setUser }) => {
           transition={{ delay: 0.2, ease: "easeOut" }}
           whileHover={{ rotate: 2 }}
         >
-          <span className="text-yellow-400">Bid</span>{" "}
-          <span className="text-[#000435]">Out</span>
+          <div className="text-2xl font-bold flex items-center space-x-2">
+            <div className="w-5 h-5 bg-yellow-500 rounded-full"></div>
+            <span className="text-yellow-500">Bid</span>Out
+          </div>
         </motion.h2>
         <AuthNotification message={message} message_ok={message_ok} />
         <form onSubmit={handleSubmit} className="space-y-6">
